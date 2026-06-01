@@ -5,12 +5,15 @@
 ![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-welfare--demo2.vercel.app-000000?logo=vercel&logoColor=white)](https://welfare-demo2.vercel.app/)
 
-### 🔗 실행 (Quick Start)
+### 🔗 라이브 데모 (Quick Start)
 
-> 이 저장소는 **v2**입니다 — 화면을 **4개 탭**(① 분석 · ② 활용도 · ③ 방문계획 · ④ 케이스 관리)으로 재구성하고, ‘**방문 동선**(우선순위 → 근접 권역 묶음 → 경로)’을 본체의 종착점으로 추가했습니다. ‘AI 에이전트’ 표현은 삭제했습니다(AI는 근거 서술만 담당).
+> **별도 설치 없이 바로 확인하세요 → https://welfare-demo2.vercel.app/**
 >
-> 로컬 실행은 아래 [시작하기](#시작하기) 절을 참고하세요. (v1 데모 참고: https://welfare-demo-huss.vercel.app/)
+> 이 저장소는 **v2**입니다 — 화면을 **4개 탭**(① 분석 · ② 활용도 · ③ 방문계획 · ④ 케이스 관리)으로 재구성하고, ‘**방문 동선**(우선순위 → 근접 권역 묶음 → 경로)’을 본체의 종착점으로 추가했습니다. ‘AI 에이전트’ 표현은 삭제했습니다(AI는 근거 서술만 담당). 수원 모녀 도입 훅·증명 경계 패널은 헤더 토글로 on/off 합니다.
+>
+> 로컬 실행 방법은 아래 [시작하기](#시작하기) 절을 참고하세요. (v1 데모 참고: https://welfare-demo-huss.vercel.app/)
 
 ---
 
