@@ -1,0 +1,26 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vercel
+
+# 로그
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 에디터
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# 도구 상태 (oh-my-claudecode 등)
+.omc/
+
+# TypeScript 빌드 캐시
+*.tsbuildinfo
+
+# 내부 기획 문서 — 공개 배포 제외 (필요 시 아래 두 줄 주석 처리)
+plan.md
+docs/

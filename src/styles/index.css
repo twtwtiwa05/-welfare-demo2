@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* 발표 시인성: 기본 본문 16px+ (5-A.5) */
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+    font-family: theme("fontFamily.sans");
+    /* 미묘한 배경 그라데이션 — 화려함이 아닌 깊이감 (흰 화면의 단조로움 완화) */
+    background-image: radial-gradient(
+      120% 80% at 50% -10%,
+      #f7fafd 0%,
+      #f1f5f9 55%,
+      #eef2f7 100%
+    );
+    background-attachment: fixed;
+  }
+  /* 숫자는 항상 정렬되게 (점수·지표 가독성) */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  /* 일관된 키보드 포커스 (접근성) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-white;
+  }
+}
+
+@layer components {
+  /* ── 카드 ─────────────────────────────────────────────── */
+  .card {
+    @apply rounded-xl border border-slate-200/80 bg-white shadow-card;
+  }
+  .card-pad {
+    @apply p-4 sm:p-5;
+  }
+  /* 카드 상단 헤더(타이틀 + 우측 액션) */
+  .card-head {
+    @apply flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3 sm:px-5;
+  }
+  .card-title {
+    @apply text-sm font-bold text-slate-700;
+  }
+  /* 작은 섹션 라벨 — 위계의 최상위 안내선 */
+  .section-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400;
+  }
+
+  /* ── 반복 패턴 공통화 (일회성 className 복붙 제거) ─────────── */
+  /* 카드 내부 정보 타일 */
+  .info-tile {
+    @apply rounded-xl border border-slate-200 bg-slate-50/70 p-4;
+  }
+  /* 작은 수치 타일 (미니 스탯) */
+  .stat-tile {
+    @apply rounded-lg border border-slate-200 bg-slate-50/60 p-2.5 text-center;
+  }
+  /* 아이콘 배경 원 */
+  .icon-circle-sm {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-lg;
+  }
+  .icon-circle-md {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-xl;
+  }
+  /* 클릭 가능한 리스트 행 — 일관된 hover/transition 내장 */
+  .list-row {
+    @apply flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-all duration-200 hover:bg-slate-50;
+  }
+  .list-row-selected {
+    @apply bg-brand-50 ring-1 ring-inset ring-brand-200;
+  }
+
+  /* ── 버튼 ─────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 disabled:pointer-events-none disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 hover:shadow active:translate-y-px;
+  }
+  .btn-secondary {
+    @apply btn border border-slate-200 bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm active:translate-y-px;
+  }
+
+  /* ── 칩/뱃지 공통 ─────────────────────────────────────── */
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold;
+  }
+
+  /* ── 고급 슬라이더 (range) ────────────────────────────── */
+  .range-brand {
+    @apply h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200;
+    outline: none;
+  }
+  .range-brand::-webkit-slider-runnable-track {
+    @apply h-2 rounded-full;
+  }
+  .range-brand::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.15rem;
+    width: 1.15rem;
+    margin-top: -0.32rem;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 2px solid theme("colors.brand.600");
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.18),
+      0 0 0 3px rgba(47, 107, 191, 0.12);
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+  }
+  .range-brand::-webkit-slider-thumb:hover {
+    transform: scale(1.08);
+  }
+  .range-brand:active::-webkit-slider-thumb {
+    box-shadow:
+      0 1px 3px rgba(15, 23, 42, 0.22),
+      0 0 0 5px rgba(47, 107, 191, 0.18);
+  }
+  .range-brand::-moz-range-track {
+    @apply h-2 rounded-full bg-slate-200;
+  }
+  .range-brand::-moz-range-thumb {
+    height: 1.15rem;
+    width: 1.15rem;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 2px solid theme("colors.brand.600");
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.18),
+      0 0 0 3px rgba(47, 107, 191, 0.12);
+  }
+}
+
+@layer utilities {
+  /* 얇고 은은한 스크롤바 (행정 도구 톤) */
+  .scroll-slim {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.slate.300") transparent;
+  }
+  .scroll-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+  .scroll-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* 미묘한 부양 인터랙션 — 클릭 가능한 카드/행에 일관 적용 (정제형 고급화) */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover;
+  }
+  /* 동선 경로선 그리기 (탭3). 대상 path/line에 pathLength="1" 필요 */
+  .route-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawLine 0.7s ease forwards;
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 부드러운 단계 전환 (5-A.6). 접근성: 모션 최소화 존중 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "welfare-demo2",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "복지망 잔여 사각지대 발굴·모니터링 보조 시스템 — 투명 위험 점수·추세 우선순위·방문 동선으로 발굴 명단을 '행동 계획'으로 바꾸는 PoC 웹 데모 (점수는 투명 공식, 근거는 LLM, 결정은 사람)",
+  "author": "Taewoo Kim <twdaniel@gachon.ac.kr>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "gen:data": "node scripts/generate-data.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

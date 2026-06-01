@@ -1,0 +1,4220 @@
+[
+  {
+    "id": "바-0138",
+    "dong": "바동",
+    "ageBand": "50s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.803,
+      "y": 0.698
+    },
+    "signals": {
+      "powerDropPct": 84,
+      "daysSinceMedical": 409,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 93
+      },
+      {
+        "week": "W2",
+        "score": 92
+      },
+      {
+        "week": "W3",
+        "score": 88
+      },
+      {
+        "week": "W4",
+        "score": 92
+      },
+      {
+        "week": "W5",
+        "score": 93
+      },
+      {
+        "week": "W6",
+        "score": 91
+      },
+      {
+        "week": "W7",
+        "score": 88
+      },
+      {
+        "week": "W8",
+        "score": 91
+      }
+    ]
+  },
+  {
+    "id": "나-0151",
+    "dong": "나동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.492,
+      "y": 0.15
+    },
+    "signals": {
+      "powerDropPct": 79,
+      "daysSinceMedical": 453,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 96
+      },
+      {
+        "week": "W2",
+        "score": 97
+      },
+      {
+        "week": "W3",
+        "score": 97
+      },
+      {
+        "week": "W4",
+        "score": 92
+      },
+      {
+        "week": "W5",
+        "score": 92
+      },
+      {
+        "week": "W6",
+        "score": 97
+      },
+      {
+        "week": "W7",
+        "score": 94
+      },
+      {
+        "week": "W8",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "id": "라-0167",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.152,
+      "y": 0.644
+    },
+    "signals": {
+      "powerDropPct": 73,
+      "daysSinceMedical": 432,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 57
+      },
+      {
+        "week": "W2",
+        "score": 65
+      },
+      {
+        "week": "W3",
+        "score": 65
+      },
+      {
+        "week": "W4",
+        "score": 73
+      },
+      {
+        "week": "W5",
+        "score": 78
+      },
+      {
+        "week": "W6",
+        "score": 77
+      },
+      {
+        "week": "W7",
+        "score": 82
+      },
+      {
+        "week": "W8",
+        "score": 87
+      }
+    ]
+  },
+  {
+    "id": "가-0202",
+    "dong": "가동",
+    "ageBand": "60s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.262,
+      "y": 0.152
+    },
+    "signals": {
+      "powerDropPct": 92,
+      "daysSinceMedical": 361,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 97
+      },
+      {
+        "week": "W7",
+        "score": 92
+      },
+      {
+        "week": "W8",
+        "score": 91
+      }
+    ]
+  },
+  {
+    "id": "마-0225",
+    "dong": "마동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.562,
+      "y": 0.651
+    },
+    "signals": {
+      "powerDropPct": 83,
+      "daysSinceMedical": 441,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 97
+      },
+      {
+        "week": "W2",
+        "score": 97
+      },
+      {
+        "week": "W3",
+        "score": 98
+      },
+      {
+        "week": "W4",
+        "score": 96
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 93
+      },
+      {
+        "week": "W7",
+        "score": 97
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "마-0271",
+    "dong": "마동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.478,
+      "y": 0.65
+    },
+    "signals": {
+      "powerDropPct": 72,
+      "daysSinceMedical": 467,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 35
+      },
+      {
+        "week": "W2",
+        "score": 46
+      },
+      {
+        "week": "W3",
+        "score": 49
+      },
+      {
+        "week": "W4",
+        "score": 61
+      },
+      {
+        "week": "W5",
+        "score": 67
+      },
+      {
+        "week": "W6",
+        "score": 77
+      },
+      {
+        "week": "W7",
+        "score": 87
+      },
+      {
+        "week": "W8",
+        "score": 92
+      }
+    ]
+  },
+  {
+    "id": "라-0299",
+    "dong": "라동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.223,
+      "y": 0.669
+    },
+    "signals": {
+      "powerDropPct": 71,
+      "daysSinceMedical": 440,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 94
+      },
+      {
+        "week": "W5",
+        "score": 89
+      },
+      {
+        "week": "W6",
+        "score": 91
+      },
+      {
+        "week": "W7",
+        "score": 84
+      },
+      {
+        "week": "W8",
+        "score": 83
+      }
+    ]
+  },
+  {
+    "id": "라-0309",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.188,
+      "y": 0.841
+    },
+    "signals": {
+      "powerDropPct": 86,
+      "daysSinceMedical": 323,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 98
+      },
+      {
+        "week": "W8",
+        "score": 93
+      }
+    ]
+  },
+  {
+    "id": "마-0324",
+    "dong": "마동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.598,
+      "y": 0.672
+    },
+    "signals": {
+      "powerDropPct": 91,
+      "daysSinceMedical": 341,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 95
+      },
+      {
+        "week": "W2",
+        "score": 98
+      },
+      {
+        "week": "W3",
+        "score": 96
+      },
+      {
+        "week": "W4",
+        "score": 95
+      },
+      {
+        "week": "W5",
+        "score": 93
+      },
+      {
+        "week": "W6",
+        "score": 93
+      },
+      {
+        "week": "W7",
+        "score": 96
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "가-0337",
+    "dong": "가동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.17,
+      "y": 0.297
+    },
+    "signals": {
+      "powerDropPct": 83,
+      "daysSinceMedical": 450,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 60
+      },
+      {
+        "week": "W2",
+        "score": 67
+      },
+      {
+        "week": "W3",
+        "score": 74
+      },
+      {
+        "week": "W4",
+        "score": 78
+      },
+      {
+        "week": "W5",
+        "score": 81
+      },
+      {
+        "week": "W6",
+        "score": 88
+      },
+      {
+        "week": "W7",
+        "score": 94
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "다-0382",
+    "dong": "다동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.9,
+      "y": 0.286
+    },
+    "signals": {
+      "powerDropPct": 81,
+      "daysSinceMedical": 377,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 98
+      },
+      {
+        "week": "W8",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "id": "마-0423",
+    "dong": "마동",
+    "ageBand": "50s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.436,
+      "y": 0.775
+    },
+    "signals": {
+      "powerDropPct": 95,
+      "daysSinceMedical": 301,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 52
+      },
+      {
+        "week": "W2",
+        "score": 57
+      },
+      {
+        "week": "W3",
+        "score": 68
+      },
+      {
+        "week": "W4",
+        "score": 74
+      },
+      {
+        "week": "W5",
+        "score": 81
+      },
+      {
+        "week": "W6",
+        "score": 85
+      },
+      {
+        "week": "W7",
+        "score": 90
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "마-0468",
+    "dong": "마동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.418,
+      "y": 0.829
+    },
+    "signals": {
+      "powerDropPct": 95,
+      "daysSinceMedical": 387,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 99
+      },
+      {
+        "week": "W8",
+        "score": 99
+      }
+    ]
+  },
+  {
+    "id": "마-0504",
+    "dong": "마동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.4,
+      "y": 0.651
+    },
+    "signals": {
+      "powerDropPct": 88,
+      "daysSinceMedical": 307,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 96
+      },
+      {
+        "week": "W8",
+        "score": 92
+      }
+    ]
+  },
+  {
+    "id": "바-0513",
+    "dong": "바동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.732,
+      "y": 0.649
+    },
+    "signals": {
+      "powerDropPct": 83,
+      "daysSinceMedical": 477,
+      "mailUncollectedWeeks": 5,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 98
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 94
+      },
+      {
+        "week": "W4",
+        "score": 96
+      },
+      {
+        "week": "W5",
+        "score": 94
+      },
+      {
+        "week": "W6",
+        "score": 98
+      },
+      {
+        "week": "W7",
+        "score": 94
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "나-0531",
+    "dong": "나동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.527,
+      "y": 0.172
+    },
+    "signals": {
+      "powerDropPct": 89,
+      "daysSinceMedical": 334,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 43
+      },
+      {
+        "week": "W2",
+        "score": 52
+      },
+      {
+        "week": "W3",
+        "score": 63
+      },
+      {
+        "week": "W4",
+        "score": 66
+      },
+      {
+        "week": "W5",
+        "score": 76
+      },
+      {
+        "week": "W6",
+        "score": 83
+      },
+      {
+        "week": "W7",
+        "score": 86
+      },
+      {
+        "week": "W8",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "id": "라-0550",
+    "dong": "라동",
+    "ageBand": "50s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.267,
+      "y": 0.762
+    },
+    "signals": {
+      "powerDropPct": 86,
+      "daysSinceMedical": 350,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 55
+      },
+      {
+        "week": "W2",
+        "score": 61
+      },
+      {
+        "week": "W3",
+        "score": 65
+      },
+      {
+        "week": "W4",
+        "score": 70
+      },
+      {
+        "week": "W5",
+        "score": 75
+      },
+      {
+        "week": "W6",
+        "score": 76
+      },
+      {
+        "week": "W7",
+        "score": 80
+      },
+      {
+        "week": "W8",
+        "score": 85
+      }
+    ]
+  },
+  {
+    "id": "마-0587",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": true,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.455,
+      "y": 0.79
+    },
+    "signals": {
+      "powerDropPct": 87,
+      "daysSinceMedical": 372,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 99
+      },
+      {
+        "week": "W8",
+        "score": 97
+      }
+    ]
+  },
+  {
+    "id": "마-0603",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.434,
+      "y": 0.765
+    },
+    "signals": {
+      "powerDropPct": 17,
+      "daysSinceMedical": 70,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 3
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 48
+      },
+      {
+        "week": "W2",
+        "score": 44
+      },
+      {
+        "week": "W3",
+        "score": 37
+      },
+      {
+        "week": "W4",
+        "score": 31
+      },
+      {
+        "week": "W5",
+        "score": 25
+      },
+      {
+        "week": "W6",
+        "score": 21
+      },
+      {
+        "week": "W7",
+        "score": 20
+      },
+      {
+        "week": "W8",
+        "score": 13
+      }
+    ]
+  },
+  {
+    "id": "마-0615",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.405,
+      "y": 0.799
+    },
+    "signals": {
+      "powerDropPct": 5,
+      "daysSinceMedical": 105,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 21
+      },
+      {
+        "week": "W2",
+        "score": 19
+      },
+      {
+        "week": "W3",
+        "score": 21
+      },
+      {
+        "week": "W4",
+        "score": 21
+      },
+      {
+        "week": "W5",
+        "score": 22
+      },
+      {
+        "week": "W6",
+        "score": 22
+      },
+      {
+        "week": "W7",
+        "score": 19
+      },
+      {
+        "week": "W8",
+        "score": 19
+      }
+    ]
+  },
+  {
+    "id": "마-0640",
+    "dong": "마동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.543,
+      "y": 0.841
+    },
+    "signals": {
+      "powerDropPct": 14,
+      "daysSinceMedical": 47,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 4
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 12
+      },
+      {
+        "week": "W2",
+        "score": 13
+      },
+      {
+        "week": "W3",
+        "score": 10
+      },
+      {
+        "week": "W4",
+        "score": 10
+      },
+      {
+        "week": "W5",
+        "score": 8
+      },
+      {
+        "week": "W6",
+        "score": 9
+      },
+      {
+        "week": "W7",
+        "score": 14
+      },
+      {
+        "week": "W8",
+        "score": 11
+      }
+    ]
+  },
+  {
+    "id": "가-0656",
+    "dong": "가동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.212,
+      "y": 0.388
+    },
+    "signals": {
+      "powerDropPct": 18,
+      "daysSinceMedical": 26,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 4
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 53
+      },
+      {
+        "week": "W2",
+        "score": 47
+      },
+      {
+        "week": "W3",
+        "score": 42
+      },
+      {
+        "week": "W4",
+        "score": 32
+      },
+      {
+        "week": "W5",
+        "score": 26
+      },
+      {
+        "week": "W6",
+        "score": 23
+      },
+      {
+        "week": "W7",
+        "score": 15
+      },
+      {
+        "week": "W8",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "id": "다-0666",
+    "dong": "다동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.911,
+      "y": 0.386
+    },
+    "signals": {
+      "powerDropPct": 3,
+      "daysSinceMedical": 66,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 3
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 39
+      },
+      {
+        "week": "W2",
+        "score": 33
+      },
+      {
+        "week": "W3",
+        "score": 32
+      },
+      {
+        "week": "W4",
+        "score": 29
+      },
+      {
+        "week": "W5",
+        "score": 20
+      },
+      {
+        "week": "W6",
+        "score": 18
+      },
+      {
+        "week": "W7",
+        "score": 11
+      },
+      {
+        "week": "W8",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "id": "다-0699",
+    "dong": "다동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.87,
+      "y": 0.386
+    },
+    "signals": {
+      "powerDropPct": 9,
+      "daysSinceMedical": 59,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 38
+      },
+      {
+        "week": "W2",
+        "score": 40
+      },
+      {
+        "week": "W3",
+        "score": 36
+      },
+      {
+        "week": "W4",
+        "score": 28
+      },
+      {
+        "week": "W5",
+        "score": 24
+      },
+      {
+        "week": "W6",
+        "score": 20
+      },
+      {
+        "week": "W7",
+        "score": 19
+      },
+      {
+        "week": "W8",
+        "score": 13
+      }
+    ]
+  },
+  {
+    "id": "라-0739",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.106,
+      "y": 0.725
+    },
+    "signals": {
+      "powerDropPct": 22,
+      "daysSinceMedical": 95,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 12
+      },
+      {
+        "week": "W2",
+        "score": 16
+      },
+      {
+        "week": "W3",
+        "score": 10
+      },
+      {
+        "week": "W4",
+        "score": 10
+      },
+      {
+        "week": "W5",
+        "score": 16
+      },
+      {
+        "week": "W6",
+        "score": 12
+      },
+      {
+        "week": "W7",
+        "score": 16
+      },
+      {
+        "week": "W8",
+        "score": 13
+      }
+    ]
+  },
+  {
+    "id": "바-0770",
+    "dong": "바동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.764,
+      "y": 0.733
+    },
+    "signals": {
+      "powerDropPct": 9,
+      "daysSinceMedical": 89,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 11
+      },
+      {
+        "week": "W2",
+        "score": 14
+      },
+      {
+        "week": "W3",
+        "score": 12
+      },
+      {
+        "week": "W4",
+        "score": 10
+      },
+      {
+        "week": "W5",
+        "score": 12
+      },
+      {
+        "week": "W6",
+        "score": 11
+      },
+      {
+        "week": "W7",
+        "score": 14
+      },
+      {
+        "week": "W8",
+        "score": 13
+      }
+    ]
+  },
+  {
+    "id": "라-0801",
+    "dong": "라동",
+    "ageBand": "60s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.242,
+      "y": 0.615
+    },
+    "signals": {
+      "powerDropPct": 15,
+      "daysSinceMedical": 1,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 15
+      },
+      {
+        "week": "W2",
+        "score": 18
+      },
+      {
+        "week": "W3",
+        "score": 17
+      },
+      {
+        "week": "W4",
+        "score": 16
+      },
+      {
+        "week": "W5",
+        "score": 18
+      },
+      {
+        "week": "W6",
+        "score": 17
+      },
+      {
+        "week": "W7",
+        "score": 13
+      },
+      {
+        "week": "W8",
+        "score": 15
+      }
+    ]
+  },
+  {
+    "id": "바-0849",
+    "dong": "바동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.929,
+      "y": 0.818
+    },
+    "signals": {
+      "powerDropPct": 25,
+      "daysSinceMedical": 47,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 18
+      },
+      {
+        "week": "W2",
+        "score": 18
+      },
+      {
+        "week": "W3",
+        "score": 19
+      },
+      {
+        "week": "W4",
+        "score": 19
+      },
+      {
+        "week": "W5",
+        "score": 15
+      },
+      {
+        "week": "W6",
+        "score": 14
+      },
+      {
+        "week": "W7",
+        "score": 16
+      },
+      {
+        "week": "W8",
+        "score": 16
+      }
+    ]
+  },
+  {
+    "id": "마-0874",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.449,
+      "y": 0.661
+    },
+    "signals": {
+      "powerDropPct": 0,
+      "daysSinceMedical": 50,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 4
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 5
+      },
+      {
+        "week": "W2",
+        "score": 7
+      },
+      {
+        "week": "W3",
+        "score": 6
+      },
+      {
+        "week": "W4",
+        "score": 2
+      },
+      {
+        "week": "W5",
+        "score": 5
+      },
+      {
+        "week": "W6",
+        "score": 4
+      },
+      {
+        "week": "W7",
+        "score": 7
+      },
+      {
+        "week": "W8",
+        "score": 4
+      }
+    ]
+  },
+  {
+    "id": "가-0927",
+    "dong": "가동",
+    "ageBand": "60s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.214,
+      "y": 0.228
+    },
+    "signals": {
+      "powerDropPct": 9,
+      "daysSinceMedical": 12,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 4
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 38
+      },
+      {
+        "week": "W2",
+        "score": 32
+      },
+      {
+        "week": "W3",
+        "score": 28
+      },
+      {
+        "week": "W4",
+        "score": 28
+      },
+      {
+        "week": "W5",
+        "score": 23
+      },
+      {
+        "week": "W6",
+        "score": 17
+      },
+      {
+        "week": "W7",
+        "score": 12
+      },
+      {
+        "week": "W8",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "id": "마-0958",
+    "dong": "마동",
+    "ageBand": "50s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.597,
+      "y": 0.678
+    },
+    "signals": {
+      "powerDropPct": 12,
+      "daysSinceMedical": 72,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 44
+      },
+      {
+        "week": "W2",
+        "score": 35
+      },
+      {
+        "week": "W3",
+        "score": 32
+      },
+      {
+        "week": "W4",
+        "score": 26
+      },
+      {
+        "week": "W5",
+        "score": 26
+      },
+      {
+        "week": "W6",
+        "score": 24
+      },
+      {
+        "week": "W7",
+        "score": 18
+      },
+      {
+        "week": "W8",
+        "score": 13
+      }
+    ]
+  },
+  {
+    "id": "가-0966",
+    "dong": "가동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.239,
+      "y": 0.186
+    },
+    "signals": {
+      "powerDropPct": 14,
+      "daysSinceMedical": 57,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 20
+      },
+      {
+        "week": "W2",
+        "score": 15
+      },
+      {
+        "week": "W3",
+        "score": 16
+      },
+      {
+        "week": "W4",
+        "score": 21
+      },
+      {
+        "week": "W5",
+        "score": 20
+      },
+      {
+        "week": "W6",
+        "score": 18
+      },
+      {
+        "week": "W7",
+        "score": 18
+      },
+      {
+        "week": "W8",
+        "score": 18
+      }
+    ]
+  },
+  {
+    "id": "마-0991",
+    "dong": "마동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.516,
+      "y": 0.768
+    },
+    "signals": {
+      "powerDropPct": 14,
+      "daysSinceMedical": 102,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 18
+      },
+      {
+        "week": "W2",
+        "score": 14
+      },
+      {
+        "week": "W3",
+        "score": 12
+      },
+      {
+        "week": "W4",
+        "score": 16
+      },
+      {
+        "week": "W5",
+        "score": 17
+      },
+      {
+        "week": "W6",
+        "score": 15
+      },
+      {
+        "week": "W7",
+        "score": 16
+      },
+      {
+        "week": "W8",
+        "score": 15
+      }
+    ]
+  },
+  {
+    "id": "바-1006",
+    "dong": "바동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.921,
+      "y": 0.843
+    },
+    "signals": {
+      "powerDropPct": 4,
+      "daysSinceMedical": 15,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 5
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 46
+      },
+      {
+        "week": "W2",
+        "score": 44
+      },
+      {
+        "week": "W3",
+        "score": 37
+      },
+      {
+        "week": "W4",
+        "score": 31
+      },
+      {
+        "week": "W5",
+        "score": 24
+      },
+      {
+        "week": "W6",
+        "score": 21
+      },
+      {
+        "week": "W7",
+        "score": 11
+      },
+      {
+        "week": "W8",
+        "score": 6
+      }
+    ]
+  },
+  {
+    "id": "가-1059",
+    "dong": "가동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.115,
+      "y": 0.354
+    },
+    "signals": {
+      "powerDropPct": 59,
+      "daysSinceMedical": 237,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 2
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 39
+      },
+      {
+        "week": "W2",
+        "score": 43
+      },
+      {
+        "week": "W3",
+        "score": 39
+      },
+      {
+        "week": "W4",
+        "score": 44
+      },
+      {
+        "week": "W5",
+        "score": 44
+      },
+      {
+        "week": "W6",
+        "score": 40
+      },
+      {
+        "week": "W7",
+        "score": 40
+      },
+      {
+        "week": "W8",
+        "score": 42
+      }
+    ]
+  },
+  {
+    "id": "라-1077",
+    "dong": "라동",
+    "ageBand": "50s",
+    "sex": "M",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.187,
+      "y": 0.613
+    },
+    "signals": {
+      "powerDropPct": 45,
+      "daysSinceMedical": 134,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 66
+      },
+      {
+        "week": "W2",
+        "score": 66
+      },
+      {
+        "week": "W3",
+        "score": 65
+      },
+      {
+        "week": "W4",
+        "score": 64
+      },
+      {
+        "week": "W5",
+        "score": 66
+      },
+      {
+        "week": "W6",
+        "score": 65
+      },
+      {
+        "week": "W7",
+        "score": 61
+      },
+      {
+        "week": "W8",
+        "score": 64
+      }
+    ]
+  },
+  {
+    "id": "라-1129",
+    "dong": "라동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.259,
+      "y": 0.677
+    },
+    "signals": {
+      "powerDropPct": 58,
+      "daysSinceMedical": 274,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 12
+      },
+      {
+        "week": "W2",
+        "score": 20
+      },
+      {
+        "week": "W3",
+        "score": 26
+      },
+      {
+        "week": "W4",
+        "score": 31
+      },
+      {
+        "week": "W5",
+        "score": 35
+      },
+      {
+        "week": "W6",
+        "score": 47
+      },
+      {
+        "week": "W7",
+        "score": 55
+      },
+      {
+        "week": "W8",
+        "score": 59
+      }
+    ]
+  },
+  {
+    "id": "다-1172",
+    "dong": "다동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.825,
+      "y": 0.302
+    },
+    "signals": {
+      "powerDropPct": 50,
+      "daysSinceMedical": 200,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 51
+      },
+      {
+        "week": "W2",
+        "score": 53
+      },
+      {
+        "week": "W3",
+        "score": 54
+      },
+      {
+        "week": "W4",
+        "score": 48
+      },
+      {
+        "week": "W5",
+        "score": 54
+      },
+      {
+        "week": "W6",
+        "score": 49
+      },
+      {
+        "week": "W7",
+        "score": 54
+      },
+      {
+        "week": "W8",
+        "score": 51
+      }
+    ]
+  },
+  {
+    "id": "가-1218",
+    "dong": "가동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.245,
+      "y": 0.317
+    },
+    "signals": {
+      "powerDropPct": 55,
+      "daysSinceMedical": 247,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 50
+      },
+      {
+        "week": "W2",
+        "score": 48
+      },
+      {
+        "week": "W3",
+        "score": 47
+      },
+      {
+        "week": "W4",
+        "score": 50
+      },
+      {
+        "week": "W5",
+        "score": 52
+      },
+      {
+        "week": "W6",
+        "score": 48
+      },
+      {
+        "week": "W7",
+        "score": 48
+      },
+      {
+        "week": "W8",
+        "score": 50
+      }
+    ]
+  },
+  {
+    "id": "라-1265",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.093,
+      "y": 0.842
+    },
+    "signals": {
+      "powerDropPct": 50,
+      "daysSinceMedical": 156,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 47
+      },
+      {
+        "week": "W2",
+        "score": 45
+      },
+      {
+        "week": "W3",
+        "score": 45
+      },
+      {
+        "week": "W4",
+        "score": 48
+      },
+      {
+        "week": "W5",
+        "score": 44
+      },
+      {
+        "week": "W6",
+        "score": 47
+      },
+      {
+        "week": "W7",
+        "score": 48
+      },
+      {
+        "week": "W8",
+        "score": 47
+      }
+    ]
+  },
+  {
+    "id": "바-1301",
+    "dong": "바동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.799,
+      "y": 0.712
+    },
+    "signals": {
+      "powerDropPct": 55,
+      "daysSinceMedical": 291,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 34
+      },
+      {
+        "week": "W2",
+        "score": 34
+      },
+      {
+        "week": "W3",
+        "score": 40
+      },
+      {
+        "week": "W4",
+        "score": 43
+      },
+      {
+        "week": "W5",
+        "score": 53
+      },
+      {
+        "week": "W6",
+        "score": 57
+      },
+      {
+        "week": "W7",
+        "score": 59
+      },
+      {
+        "week": "W8",
+        "score": 66
+      }
+    ]
+  },
+  {
+    "id": "마-1349",
+    "dong": "마동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.418,
+      "y": 0.712
+    },
+    "signals": {
+      "powerDropPct": 48,
+      "daysSinceMedical": 225,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 2
+      },
+      {
+        "week": "W2",
+        "score": 2
+      },
+      {
+        "week": "W3",
+        "score": 2
+      },
+      {
+        "week": "W4",
+        "score": 2
+      },
+      {
+        "week": "W5",
+        "score": 11
+      },
+      {
+        "week": "W6",
+        "score": 15
+      },
+      {
+        "week": "W7",
+        "score": 28
+      },
+      {
+        "week": "W8",
+        "score": 34
+      }
+    ]
+  },
+  {
+    "id": "바-1370",
+    "dong": "바동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.836,
+      "y": 0.787
+    },
+    "signals": {
+      "powerDropPct": 50,
+      "daysSinceMedical": 146,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 37
+      },
+      {
+        "week": "W2",
+        "score": 36
+      },
+      {
+        "week": "W3",
+        "score": 38
+      },
+      {
+        "week": "W4",
+        "score": 36
+      },
+      {
+        "week": "W5",
+        "score": 36
+      },
+      {
+        "week": "W6",
+        "score": 37
+      },
+      {
+        "week": "W7",
+        "score": 38
+      },
+      {
+        "week": "W8",
+        "score": 38
+      }
+    ]
+  },
+  {
+    "id": "나-1399",
+    "dong": "나동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.468,
+      "y": 0.195
+    },
+    "signals": {
+      "powerDropPct": 52,
+      "daysSinceMedical": 159,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 2
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 38
+      },
+      {
+        "week": "W2",
+        "score": 36
+      },
+      {
+        "week": "W3",
+        "score": 34
+      },
+      {
+        "week": "W4",
+        "score": 34
+      },
+      {
+        "week": "W5",
+        "score": 37
+      },
+      {
+        "week": "W6",
+        "score": 37
+      },
+      {
+        "week": "W7",
+        "score": 35
+      },
+      {
+        "week": "W8",
+        "score": 36
+      }
+    ]
+  },
+  {
+    "id": "바-1428",
+    "dong": "바동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.905,
+      "y": 0.686
+    },
+    "signals": {
+      "powerDropPct": 49,
+      "daysSinceMedical": 171,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 4
+      },
+      {
+        "week": "W2",
+        "score": 9
+      },
+      {
+        "week": "W3",
+        "score": 18
+      },
+      {
+        "week": "W4",
+        "score": 19
+      },
+      {
+        "week": "W5",
+        "score": 27
+      },
+      {
+        "week": "W6",
+        "score": 33
+      },
+      {
+        "week": "W7",
+        "score": 38
+      },
+      {
+        "week": "W8",
+        "score": 45
+      }
+    ]
+  },
+  {
+    "id": "라-1449",
+    "dong": "라동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.103,
+      "y": 0.742
+    },
+    "signals": {
+      "powerDropPct": 60,
+      "daysSinceMedical": 152,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 1
+    },
+    "groundTruthRisk": "mid",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 39
+      },
+      {
+        "week": "W2",
+        "score": 41
+      },
+      {
+        "week": "W3",
+        "score": 41
+      },
+      {
+        "week": "W4",
+        "score": 38
+      },
+      {
+        "week": "W5",
+        "score": 40
+      },
+      {
+        "week": "W6",
+        "score": 40
+      },
+      {
+        "week": "W7",
+        "score": 38
+      },
+      {
+        "week": "W8",
+        "score": 38
+      }
+    ]
+  },
+  {
+    "id": "다-1502",
+    "dong": "다동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.789,
+      "y": 0.379
+    },
+    "signals": {
+      "powerDropPct": 83,
+      "daysSinceMedical": 410,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 64
+      },
+      {
+        "week": "W2",
+        "score": 65
+      },
+      {
+        "week": "W3",
+        "score": 73
+      },
+      {
+        "week": "W4",
+        "score": 79
+      },
+      {
+        "week": "W5",
+        "score": 80
+      },
+      {
+        "week": "W6",
+        "score": 88
+      },
+      {
+        "week": "W7",
+        "score": 93
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "가-1513",
+    "dong": "가동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.099,
+      "y": 0.363
+    },
+    "signals": {
+      "powerDropPct": 86,
+      "daysSinceMedical": 413,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 71
+      },
+      {
+        "week": "W2",
+        "score": 72
+      },
+      {
+        "week": "W3",
+        "score": 76
+      },
+      {
+        "week": "W4",
+        "score": 84
+      },
+      {
+        "week": "W5",
+        "score": 85
+      },
+      {
+        "week": "W6",
+        "score": 90
+      },
+      {
+        "week": "W7",
+        "score": 91
+      },
+      {
+        "week": "W8",
+        "score": 97
+      }
+    ]
+  },
+  {
+    "id": "나-1525",
+    "dong": "나동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.43,
+      "y": 0.154
+    },
+    "signals": {
+      "powerDropPct": 84,
+      "daysSinceMedical": 472,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 64
+      },
+      {
+        "week": "W2",
+        "score": 68
+      },
+      {
+        "week": "W3",
+        "score": 70
+      },
+      {
+        "week": "W4",
+        "score": 74
+      },
+      {
+        "week": "W5",
+        "score": 78
+      },
+      {
+        "week": "W6",
+        "score": 83
+      },
+      {
+        "week": "W7",
+        "score": 93
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "가-1539",
+    "dong": "가동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.244,
+      "y": 0.368
+    },
+    "signals": {
+      "powerDropPct": 85,
+      "daysSinceMedical": 448,
+      "mailUncollectedWeeks": 5,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 63
+      },
+      {
+        "week": "W2",
+        "score": 68
+      },
+      {
+        "week": "W3",
+        "score": 71
+      },
+      {
+        "week": "W4",
+        "score": 75
+      },
+      {
+        "week": "W5",
+        "score": 81
+      },
+      {
+        "week": "W6",
+        "score": 84
+      },
+      {
+        "week": "W7",
+        "score": 88
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "라-1591",
+    "dong": "라동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.215,
+      "y": 0.713
+    },
+    "signals": {
+      "powerDropPct": 86,
+      "daysSinceMedical": 476,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 48
+      },
+      {
+        "week": "W2",
+        "score": 55
+      },
+      {
+        "week": "W3",
+        "score": 63
+      },
+      {
+        "week": "W4",
+        "score": 69
+      },
+      {
+        "week": "W5",
+        "score": 77
+      },
+      {
+        "week": "W6",
+        "score": 85
+      },
+      {
+        "week": "W7",
+        "score": 93
+      },
+      {
+        "week": "W8",
+        "score": 97
+      }
+    ]
+  },
+  {
+    "id": "가-1640",
+    "dong": "가동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.158,
+      "y": 0.19
+    },
+    "signals": {
+      "powerDropPct": 93,
+      "daysSinceMedical": 468,
+      "mailUncollectedWeeks": 6,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 98
+      },
+      {
+        "week": "W3",
+        "score": 98
+      },
+      {
+        "week": "W4",
+        "score": 99
+      },
+      {
+        "week": "W5",
+        "score": 99
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 97
+      },
+      {
+        "week": "W8",
+        "score": 98
+      }
+    ]
+  },
+  {
+    "id": "나-1693",
+    "dong": "나동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.413,
+      "y": 0.278
+    },
+    "signals": {
+      "powerDropPct": 82,
+      "daysSinceMedical": 483,
+      "mailUncollectedWeeks": 5,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 43
+      },
+      {
+        "week": "W2",
+        "score": 51
+      },
+      {
+        "week": "W3",
+        "score": 58
+      },
+      {
+        "week": "W4",
+        "score": 63
+      },
+      {
+        "week": "W5",
+        "score": 74
+      },
+      {
+        "week": "W6",
+        "score": 77
+      },
+      {
+        "week": "W7",
+        "score": 85
+      },
+      {
+        "week": "W8",
+        "score": 96
+      }
+    ]
+  },
+  {
+    "id": "마-1713",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.464,
+      "y": 0.705
+    },
+    "signals": {
+      "powerDropPct": 74,
+      "daysSinceMedical": 330,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 82
+      },
+      {
+        "week": "W2",
+        "score": 84
+      },
+      {
+        "week": "W3",
+        "score": 79
+      },
+      {
+        "week": "W4",
+        "score": 82
+      },
+      {
+        "week": "W5",
+        "score": 78
+      },
+      {
+        "week": "W6",
+        "score": 78
+      },
+      {
+        "week": "W7",
+        "score": 79
+      },
+      {
+        "week": "W8",
+        "score": 81
+      }
+    ]
+  },
+  {
+    "id": "라-1731",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.106,
+      "y": 0.613
+    },
+    "signals": {
+      "powerDropPct": 68,
+      "daysSinceMedical": 350,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 56
+      },
+      {
+        "week": "W2",
+        "score": 58
+      },
+      {
+        "week": "W3",
+        "score": 62
+      },
+      {
+        "week": "W4",
+        "score": 63
+      },
+      {
+        "week": "W5",
+        "score": 67
+      },
+      {
+        "week": "W6",
+        "score": 74
+      },
+      {
+        "week": "W7",
+        "score": 77
+      },
+      {
+        "week": "W8",
+        "score": 81
+      }
+    ]
+  },
+  {
+    "id": "다-1746",
+    "dong": "다동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.847,
+      "y": 0.219
+    },
+    "signals": {
+      "powerDropPct": 78,
+      "daysSinceMedical": 300,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 50
+      },
+      {
+        "week": "W2",
+        "score": 53
+      },
+      {
+        "week": "W3",
+        "score": 61
+      },
+      {
+        "week": "W4",
+        "score": 66
+      },
+      {
+        "week": "W5",
+        "score": 71
+      },
+      {
+        "week": "W6",
+        "score": 72
+      },
+      {
+        "week": "W7",
+        "score": 75
+      },
+      {
+        "week": "W8",
+        "score": 80
+      }
+    ]
+  },
+  {
+    "id": "바-1758",
+    "dong": "바동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.744,
+      "y": 0.767
+    },
+    "signals": {
+      "powerDropPct": 72,
+      "daysSinceMedical": 340,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 36
+      },
+      {
+        "week": "W2",
+        "score": 38
+      },
+      {
+        "week": "W3",
+        "score": 44
+      },
+      {
+        "week": "W4",
+        "score": 49
+      },
+      {
+        "week": "W5",
+        "score": 59
+      },
+      {
+        "week": "W6",
+        "score": 66
+      },
+      {
+        "week": "W7",
+        "score": 69
+      },
+      {
+        "week": "W8",
+        "score": 75
+      }
+    ]
+  },
+  {
+    "id": "가-1789",
+    "dong": "가동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.182,
+      "y": 0.3
+    },
+    "signals": {
+      "powerDropPct": 70,
+      "daysSinceMedical": 320,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 21
+      },
+      {
+        "week": "W2",
+        "score": 32
+      },
+      {
+        "week": "W3",
+        "score": 41
+      },
+      {
+        "week": "W4",
+        "score": 49
+      },
+      {
+        "week": "W5",
+        "score": 58
+      },
+      {
+        "week": "W6",
+        "score": 61
+      },
+      {
+        "week": "W7",
+        "score": 70
+      },
+      {
+        "week": "W8",
+        "score": 79
+      }
+    ]
+  },
+  {
+    "id": "바-1831",
+    "dong": "바동",
+    "ageBand": "70s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.833,
+      "y": 0.847
+    },
+    "signals": {
+      "powerDropPct": 76,
+      "daysSinceMedical": 355,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 53
+      },
+      {
+        "week": "W2",
+        "score": 57
+      },
+      {
+        "week": "W3",
+        "score": 66
+      },
+      {
+        "week": "W4",
+        "score": 67
+      },
+      {
+        "week": "W5",
+        "score": 75
+      },
+      {
+        "week": "W6",
+        "score": 76
+      },
+      {
+        "week": "W7",
+        "score": 78
+      },
+      {
+        "week": "W8",
+        "score": 84
+      }
+    ]
+  },
+  {
+    "id": "바-1880",
+    "dong": "바동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": false,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.744,
+      "y": 0.766
+    },
+    "signals": {
+      "powerDropPct": 70,
+      "daysSinceMedical": 310,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "A",
+    "history": [
+      {
+        "week": "W1",
+        "score": 43
+      },
+      {
+        "week": "W2",
+        "score": 42
+      },
+      {
+        "week": "W3",
+        "score": 47
+      },
+      {
+        "week": "W4",
+        "score": 55
+      },
+      {
+        "week": "W5",
+        "score": 59
+      },
+      {
+        "week": "W6",
+        "score": 65
+      },
+      {
+        "week": "W7",
+        "score": 70
+      },
+      {
+        "week": "W8",
+        "score": 75
+      }
+    ]
+  },
+  {
+    "id": "가-1910",
+    "dong": "가동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": false,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.25,
+      "y": 0.38
+    },
+    "signals": {
+      "powerDropPct": 69,
+      "daysSinceMedical": 301,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "A",
+    "history": [
+      {
+        "week": "W1",
+        "score": 70
+      },
+      {
+        "week": "W2",
+        "score": 74
+      },
+      {
+        "week": "W3",
+        "score": 70
+      },
+      {
+        "week": "W4",
+        "score": 70
+      },
+      {
+        "week": "W5",
+        "score": 72
+      },
+      {
+        "week": "W6",
+        "score": 69
+      },
+      {
+        "week": "W7",
+        "score": 71
+      },
+      {
+        "week": "W8",
+        "score": 71
+      }
+    ]
+  },
+  {
+    "id": "마-1941",
+    "dong": "마동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": false,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.403,
+      "y": 0.789
+    },
+    "signals": {
+      "powerDropPct": 73,
+      "daysSinceMedical": 341,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "A",
+    "history": [
+      {
+        "week": "W1",
+        "score": 50
+      },
+      {
+        "week": "W2",
+        "score": 57
+      },
+      {
+        "week": "W3",
+        "score": 63
+      },
+      {
+        "week": "W4",
+        "score": 68
+      },
+      {
+        "week": "W5",
+        "score": 71
+      },
+      {
+        "week": "W6",
+        "score": 79
+      },
+      {
+        "week": "W7",
+        "score": 88
+      },
+      {
+        "week": "W8",
+        "score": 91
+      }
+    ]
+  },
+  {
+    "id": "라-1950",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": false,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.159,
+      "y": 0.635
+    },
+    "signals": {
+      "powerDropPct": 69,
+      "daysSinceMedical": 365,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 1,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "A",
+    "history": [
+      {
+        "week": "W1",
+        "score": 87
+      },
+      {
+        "week": "W2",
+        "score": 84
+      },
+      {
+        "week": "W3",
+        "score": 88
+      },
+      {
+        "week": "W4",
+        "score": 89
+      },
+      {
+        "week": "W5",
+        "score": 88
+      },
+      {
+        "week": "W6",
+        "score": 87
+      },
+      {
+        "week": "W7",
+        "score": 89
+      },
+      {
+        "week": "W8",
+        "score": 86
+      }
+    ]
+  },
+  {
+    "id": "바-1971",
+    "dong": "바동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.74,
+      "y": 0.659
+    },
+    "signals": {
+      "powerDropPct": 42,
+      "daysSinceMedical": 90,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "C",
+    "history": [
+      {
+        "week": "W1",
+        "score": 2
+      },
+      {
+        "week": "W2",
+        "score": 7
+      },
+      {
+        "week": "W3",
+        "score": 12
+      },
+      {
+        "week": "W4",
+        "score": 20
+      },
+      {
+        "week": "W5",
+        "score": 32
+      },
+      {
+        "week": "W6",
+        "score": 38
+      },
+      {
+        "week": "W7",
+        "score": 46
+      },
+      {
+        "week": "W8",
+        "score": 53
+      }
+    ]
+  },
+  {
+    "id": "바-2014",
+    "dong": "바동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.747,
+      "y": 0.715
+    },
+    "signals": {
+      "powerDropPct": 38,
+      "daysSinceMedical": 70,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "C",
+    "history": [
+      {
+        "week": "W1",
+        "score": 56
+      },
+      {
+        "week": "W2",
+        "score": 52
+      },
+      {
+        "week": "W3",
+        "score": 52
+      },
+      {
+        "week": "W4",
+        "score": 58
+      },
+      {
+        "week": "W5",
+        "score": 58
+      },
+      {
+        "week": "W6",
+        "score": 58
+      },
+      {
+        "week": "W7",
+        "score": 52
+      },
+      {
+        "week": "W8",
+        "score": 55
+      }
+    ]
+  },
+  {
+    "id": "바-2049",
+    "dong": "바동",
+    "ageBand": "60s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 1,
+    "coords": {
+      "x": 0.927,
+      "y": 0.791
+    },
+    "signals": {
+      "powerDropPct": 50,
+      "daysSinceMedical": 110,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "C",
+    "history": [
+      {
+        "week": "W1",
+        "score": 28
+      },
+      {
+        "week": "W2",
+        "score": 34
+      },
+      {
+        "week": "W3",
+        "score": 39
+      },
+      {
+        "week": "W4",
+        "score": 44
+      },
+      {
+        "week": "W5",
+        "score": 46
+      },
+      {
+        "week": "W6",
+        "score": 51
+      },
+      {
+        "week": "W7",
+        "score": 50
+      },
+      {
+        "week": "W8",
+        "score": 57
+      }
+    ]
+  },
+  {
+    "id": "다-2095",
+    "dong": "다동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.814,
+      "y": 0.306
+    },
+    "signals": {
+      "powerDropPct": 45,
+      "daysSinceMedical": 60,
+      "mailUncollectedWeeks": 2,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "C",
+    "history": [
+      {
+        "week": "W1",
+        "score": 17
+      },
+      {
+        "week": "W2",
+        "score": 24
+      },
+      {
+        "week": "W3",
+        "score": 26
+      },
+      {
+        "week": "W4",
+        "score": 33
+      },
+      {
+        "week": "W5",
+        "score": 40
+      },
+      {
+        "week": "W6",
+        "score": 43
+      },
+      {
+        "week": "W7",
+        "score": 51
+      },
+      {
+        "week": "W8",
+        "score": 57
+      }
+    ]
+  },
+  {
+    "id": "라-2117",
+    "dong": "라동",
+    "ageBand": "50s",
+    "sex": "F",
+    "profileGroup": "middleaged",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.269,
+      "y": 0.717
+    },
+    "signals": {
+      "powerDropPct": 40,
+      "daysSinceMedical": 95,
+      "mailUncollectedWeeks": 1,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "mid",
+    "caseType": "C",
+    "history": [
+      {
+        "week": "W1",
+        "score": 55
+      },
+      {
+        "week": "W2",
+        "score": 55
+      },
+      {
+        "week": "W3",
+        "score": 54
+      },
+      {
+        "week": "W4",
+        "score": 56
+      },
+      {
+        "week": "W5",
+        "score": 54
+      },
+      {
+        "week": "W6",
+        "score": 53
+      },
+      {
+        "week": "W7",
+        "score": 54
+      },
+      {
+        "week": "W8",
+        "score": 53
+      }
+    ]
+  },
+  {
+    "id": "다-2125",
+    "dong": "다동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.912,
+      "y": 0.229
+    },
+    "signals": {
+      "powerDropPct": 88,
+      "daysSinceMedical": 25,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 3
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 26
+      },
+      {
+        "week": "W2",
+        "score": 22
+      },
+      {
+        "week": "W3",
+        "score": 23
+      },
+      {
+        "week": "W4",
+        "score": 22
+      },
+      {
+        "week": "W5",
+        "score": 24
+      },
+      {
+        "week": "W6",
+        "score": 25
+      },
+      {
+        "week": "W7",
+        "score": 21
+      },
+      {
+        "week": "W8",
+        "score": 24
+      }
+    ]
+  },
+  {
+    "id": "바-2158",
+    "dong": "바동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 0,
+    "coords": {
+      "x": 0.751,
+      "y": 0.718
+    },
+    "signals": {
+      "powerDropPct": 12,
+      "daysSinceMedical": 400,
+      "mailUncollectedWeeks": 0,
+      "telecomOverdueMonths": 0,
+      "welfareCenterVisits6mo": 4
+    },
+    "groundTruthRisk": "low",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 32
+      },
+      {
+        "week": "W2",
+        "score": 32
+      },
+      {
+        "week": "W3",
+        "score": 36
+      },
+      {
+        "week": "W4",
+        "score": 30
+      },
+      {
+        "week": "W5",
+        "score": 36
+      },
+      {
+        "week": "W6",
+        "score": 35
+      },
+      {
+        "week": "W7",
+        "score": 36
+      },
+      {
+        "week": "W8",
+        "score": 33
+      }
+    ]
+  },
+  {
+    "id": "라-2190",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "F",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 8,
+    "coords": {
+      "x": 0.14,
+      "y": 0.8
+    },
+    "signals": {
+      "powerDropPct": 92,
+      "daysSinceMedical": 470,
+      "mailUncollectedWeeks": 5,
+      "telecomOverdueMonths": 4,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 70
+      },
+      {
+        "week": "W2",
+        "score": 73
+      },
+      {
+        "week": "W3",
+        "score": 78
+      },
+      {
+        "week": "W4",
+        "score": 81
+      },
+      {
+        "week": "W5",
+        "score": 84
+      },
+      {
+        "week": "W6",
+        "score": 86
+      },
+      {
+        "week": "W7",
+        "score": 86
+      },
+      {
+        "week": "W8",
+        "score": 98
+      }
+    ]
+  },
+  {
+    "id": "라-2242",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 3,
+    "coords": {
+      "x": 0.21,
+      "y": 0.74
+    },
+    "signals": {
+      "powerDropPct": 78,
+      "daysSinceMedical": 360,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 45
+      },
+      {
+        "week": "W2",
+        "score": 46
+      },
+      {
+        "week": "W3",
+        "score": 57
+      },
+      {
+        "week": "W4",
+        "score": 60
+      },
+      {
+        "week": "W5",
+        "score": 69
+      },
+      {
+        "week": "W6",
+        "score": 70
+      },
+      {
+        "week": "W7",
+        "score": 80
+      },
+      {
+        "week": "W8",
+        "score": 85
+      }
+    ]
+  },
+  {
+    "id": "라-2293",
+    "dong": "라동",
+    "ageBand": "70s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.12,
+      "y": 0.84
+    },
+    "signals": {
+      "powerDropPct": 72,
+      "daysSinceMedical": 350,
+      "mailUncollectedWeeks": 3,
+      "telecomOverdueMonths": 2,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": "B",
+    "history": [
+      {
+        "week": "W1",
+        "score": 33
+      },
+      {
+        "week": "W2",
+        "score": 37
+      },
+      {
+        "week": "W3",
+        "score": 47
+      },
+      {
+        "week": "W4",
+        "score": 53
+      },
+      {
+        "week": "W5",
+        "score": 59
+      },
+      {
+        "week": "W6",
+        "score": 68
+      },
+      {
+        "week": "W7",
+        "score": 72
+      },
+      {
+        "week": "W8",
+        "score": 82
+      }
+    ]
+  },
+  {
+    "id": "라-2313",
+    "dong": "라동",
+    "ageBand": "80s",
+    "sex": "M",
+    "profileGroup": "elderly",
+    "registeredAlone": true,
+    "haengbokFlagged": false,
+    "repeatedFlags": 2,
+    "coords": {
+      "x": 0.24,
+      "y": 0.82
+    },
+    "signals": {
+      "powerDropPct": 86,
+      "daysSinceMedical": 380,
+      "mailUncollectedWeeks": 4,
+      "telecomOverdueMonths": 3,
+      "welfareCenterVisits6mo": 0
+    },
+    "groundTruthRisk": "high",
+    "caseType": null,
+    "history": [
+      {
+        "week": "W1",
+        "score": 99
+      },
+      {
+        "week": "W2",
+        "score": 99
+      },
+      {
+        "week": "W3",
+        "score": 99
+      },
+      {
+        "week": "W4",
+        "score": 97
+      },
+      {
+        "week": "W5",
+        "score": 98
+      },
+      {
+        "week": "W6",
+        "score": 99
+      },
+      {
+        "week": "W7",
+        "score": 98
+      },
+      {
+        "week": "W8",
+        "score": 97
+      }
+    ]
+  }
+]
