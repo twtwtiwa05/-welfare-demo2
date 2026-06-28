@@ -6,7 +6,8 @@ import type { Household } from "../../lib/types";
 import PriorityList from "./PriorityList";
 import RouteMap from "./RouteMap";
 import RouteCard from "./RouteCard";
-import { Route } from "lucide-react";
+import ClusterGroups from "../ml/ClusterGroups";
+import { Route, Users2 } from "lucide-react";
 
 const RESIDUAL = HOUSEHOLDS.filter((h) => !h.haengbokFlagged);
 
@@ -62,6 +63,19 @@ export default function VisitTab({ onGotoCase }: { onGotoCase: (id: string) => v
         — 한정된 인력이 한 번의 외근으로 인접 가구를 함께 점검하도록 묶습니다.
       </div>
 
+      {/* ML 대량 선별 메시지 (작업 B) */}
+      <div className="flex items-start gap-2.5 rounded-xl border border-rose-100 bg-rose-50/50 px-4 py-3 text-sm leading-relaxed text-slate-600">
+        <Users2 size={18} className="mt-0.5 shrink-0 text-rose-500" />
+        <span>
+          한 명이 수십 가구를 담당하는 현실에서, ML이{" "}
+          <b className="text-rose-700">급속·다변량 악화 가구를 자동 선별</b>해 건초더미를 줄입니다.
+          ML은 판정하지 않습니다 — 우선 볼 곳을 가릴 뿐, 방문 결정은 담당자.{" "}
+          <span className="text-slate-400">
+            (한전·통신3사 ‘AI 안부살핌’이 운영 중인 접근 — 그 교육용 PoC)
+          </span>
+        </span>
+      </div>
+
       <div className="grid gap-4 lg:grid-cols-[22rem_1fr]">
         {/* 좌: 우선순위 */}
         <PriorityList
@@ -103,6 +117,9 @@ export default function VisitTab({ onGotoCase }: { onGotoCase: (id: string) => v
           />
         </div>
       </div>
+
+      {/* 궤적 군집 (우선순위 그룹화) — ML 보조선별 */}
+      <ClusterGroups households={RESIDUAL} onPick={onGotoCase} />
     </div>
   );
 }

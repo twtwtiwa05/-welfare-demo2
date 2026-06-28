@@ -8,7 +8,7 @@ import { TrendingUp, ArrowDown, ChevronDown, ShieldAlert, History } from "lucide
 
 // After — 같은 가구에 '행동 가능한' 정보를 더한 카드.
 // 근거(rationale) + 출처 칩(basisSignals, 환각 방어) + 추세 + 우선순위 번호 + 권고 + 반대근거.
-// ⚠️ 순서·점수는 투명 공식이 만든다. AI(시뮬)는 '왜 이런지'를 서술만 한다.
+// ⚠️ 순서·점수는 투명 공식이 만든다. 근거 서술(LLM 역할)은 '왜 이런지'를 서술만 한다(판정·점수 생성 안 함).
 export default function AfterCard({
   ranked,
   onGotoCase,
@@ -60,7 +60,7 @@ export default function AfterCard({
 
       {/* 근거 출처 칩 (환각 방어 — 주어진 신호에만 기반) */}
       <div className="mt-2 flex flex-wrap items-center gap-1.5">
-        <SimBadge label="AI 근거" title="실서비스에선 LLM이 생성. 점수·순서는 만들지 않고 서술만." />
+        <SimBadge label="근거 서술" title="실서비스에선 LLM이 생성(역할 한정). 점수·순서는 만들지 않고 서술만." />
         {reason.basisSignals.map((b) => (
           <span key={b} className="chip bg-slate-100 text-[11px] font-medium text-slate-500">
             {b}

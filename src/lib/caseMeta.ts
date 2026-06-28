@@ -32,8 +32,9 @@ const PRIORITY_LABEL: Record<Priority, string> = {
 };
 
 export function priorityOf(score: number): Priority {
-  if (score >= 65) return "P1";
-  if (score >= 45) return "P2";
+  // 위험 밴드(scoring.BAND_CUTOFFS: 고위험 80 / 주의 50)와 정렬
+  if (score >= 80) return "P1";
+  if (score >= 50) return "P2";
   return "P3";
 }
 

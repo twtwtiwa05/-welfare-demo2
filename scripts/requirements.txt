@@ -1,0 +1,13 @@
+# 오프라인 ML 보조선별 파이프라인 (scripts/run_ml.py) 의존성
+# 설치: pip install -r scripts/requirements.txt
+# 실행: python scripts/run_ml.py   (또는 npm run gen:ml)
+#
+# ⚠️ 런타임(브라우저)에는 불필요. 오프라인에서 households.json에 보조신호를 구울 때만 사용.
+# ⚠️ 재현성: 버전을 고정한다(== ). scikit-learn은 버전 간 KMeans/IsolationForest 기본동작이
+#    변해온 이력이 있어, 구워진 ml 값(anomalyScore/clusterId)의 동일 재현을 위해 고정 필수.
+#    (검증 환경: Python 3.12)
+numpy==1.26.4
+scipy==1.14.1
+scikit-learn==1.5.1
+ruptures==1.1.10        # 변화점 탐지 (Binary Segmentation / PELT)
+pymannkendall==1.4.3    # Mann-Kendall 추세검정 + Theil-Sen 기울기

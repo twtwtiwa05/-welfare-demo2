@@ -1,10 +1,16 @@
 // 합성 가구 데이터 생성기 — 시드 고정, 재현 가능.
 //
-// ⚠️ 정직성 원칙(plan 0절·G): 여기서 만드는 것은 "정답(groundTruthRisk)을 우리가 설계한"
+// ⚠️ 정직성 원칙(가드레일 G): 여기서 만드는 것은 "정답(groundTruthRisk)을 우리가 설계한"
 //    합성 데이터다. 따라서 이 데이터로 '발굴 성능'을 증명할 수 없다. 데모가 증명하는 것은
-//    분석 파이프라인·근거 리포트·대시보드 UX의 작동이다. 화면은 이 한계를 숨기지 않는다.
+//    분석 파이프라인·근거 리포트·대시보드 UX·ML 보조선별의 작동이다. 화면은 이 한계를 숨기지 않는다.
+//
+// ★ v3: 신호별 8주 원시 궤적(signalHistory)을 생성한다 — 다변량 이상탐지(작업 B)의 입력.
+//        점수 시계열(history)은 이 궤적으로부터 집단 가중모형으로 *파생*한다(정합).
+//        일부 가구는 "결합 급락"(여러 신호가 동시에 막판 2주에 꺾임)을 갖도록 설계 →
+//        각 신호는 단일 임계 미만이지만 ML이 결합 이상으로 잡아낸다.
 //
 // 실행: npm run gen:data   (node scripts/generate-data.mjs)
+//   이후 npm run gen:ml (python scripts/run_ml.py)로 ML 보조신호(anomaly/cluster/changePoint) 추가.
 // 출력: src/data/households.json
 
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -30,29 +36,28 @@ const ri = (min, max) => Math.floor(rand() * (max - min + 1)) + min;
 const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 
 // ── 점수 공식 (src/lib/scoring.ts·profiles.ts와 동일해야 함) ──────
-// 집단별 가중치(합 100). ②(집단특화)의 유일한 증명 수단.
+// ⚠️ 가중치는 근거 강도로 제약된다(우편=약→최저). profiles.ts와 반드시 일치.
 const PROFILES = {
-  elderly: { power: 25, medical: 30, mail: 25, telecom: 10, isolation: 10 },
-  middleaged: { power: 30, medical: 15, mail: 15, telecom: 20, isolation: 20 },
+  elderly: { power: 28, medical: 30, telecom: 12, isolation: 18, mail: 12 },
+  middleaged: { power: 30, telecom: 24, isolation: 22, medical: 14, mail: 10 },
 };
-function normalize(s) {
+const SIGNAL_KEYS = ["power", "medical", "mail", "telecom", "isolation"];
+const clamp01 = (v) => Math.max(0, Math.min(1, v));
+function deficitsOf(s) {
   return {
-    power: Math.min(s.powerDropPct / 100, 1),
-    medical: Math.min(s.daysSinceMedical / 365, 1),
-    mail: Math.min(s.mailUncollectedWeeks / 4, 1),
-    telecom: Math.min(s.telecomOverdueMonths / 3, 1),
+    power: clamp01(s.powerDropPct / 100),
+    medical: clamp01(s.daysSinceMedical / 365),
+    mail: clamp01(s.mailUncollectedWeeks / 4),
+    telecom: clamp01(s.telecomOverdueMonths / 3),
     isolation: s.welfareCenterVisits6mo === 0 ? 1 : 0,
   };
 }
 function computeScore(signals, profileKey) {
   const w = PROFILES[profileKey];
-  const n = normalize(signals);
-  const sum =
-    n.power * w.power +
-    n.medical * w.medical +
-    n.mail * w.mail +
-    n.telecom * w.telecom +
-    n.isolation * w.isolation;
+  const d = deficitsOf(signals);
+  const sumW = SIGNAL_KEYS.reduce((a, k) => a + w[k], 0);
+  const norm = 100 / sumW;
+  const sum = SIGNAL_KEYS.reduce((a, k) => a + d[k] * w[k] * norm, 0);
   return Math.round(sum);
 }
 
@@ -60,8 +65,6 @@ const DONGS = ["가", "나", "다", "라", "마", "바"];
 const SEX = ["F", "M"];
 
 // ── ★ 합성 좌표(0~1) — 방문 동선용 ─────────────────────────────────
-// 6개 행정동을 3열×2행 개념 격자에 배치하고, 각 동 중심 주변에 가구를 산포한다.
-// ⚠️ 실제 지리 아님. 실서비스에선 법적 근거 하 재식별 후에만 좌표 표시 가능.
 const DONG_CENTER = {
   가: { x: 0.17, y: 0.27 },
   나: { x: 0.5, y: 0.27 },
@@ -70,32 +73,109 @@ const DONG_CENTER = {
   마: { x: 0.5, y: 0.73 },
   바: { x: 0.83, y: 0.73 },
 };
-const clamp01 = (v) => +Math.max(0.04, Math.min(0.96, v)).toFixed(3);
+const clampCoord = (v) => +Math.max(0.04, Math.min(0.96, v)).toFixed(3);
 const jitter = (spread) => (rand() * 2 - 1) * spread;
 function coordsFor(dongLetter) {
   const c = DONG_CENTER[dongLetter] ?? { x: 0.5, y: 0.5 };
-  return { x: clamp01(c.x + jitter(0.1)), y: clamp01(c.y + jitter(0.12)) };
+  return { x: clampCoord(c.x + jitter(0.1)), y: clampCoord(c.y + jitter(0.12)) };
 }
-// 누적 통보 횟수 기본값 — 위험할수록 반복 통보가 잦았을 개연성
 function defaultRepeatedFlags(groundTruthRisk) {
   if (groundTruthRisk === "high") return ri(1, 3);
   if (groundTruthRisk === "mid") return ri(0, 2);
   return 0;
 }
 
-// 8주 시계열 생성 — finalScore를 끝점으로, 추세(상승/하강/평탄) 부여
-function makeHistory(finalScore, trend) {
-  const slopes = { up: ri(4, 8), down: -ri(3, 6), flat: 0 };
-  const slope = slopes[trend];
-  const weeks = [];
-  for (let i = 7; i >= 0; i--) {
-    const noise = ri(-3, 3);
-    let v = finalScore - slope * i + noise;
-    v = Math.max(2, Math.min(99, Math.round(v)));
-    weeks.push(v);
+// ── ★ 신호별 8주 궤적 생성 ─────────────────────────────────────────
+// 각 신호의 '건강한 끝'과 '심각한 끝'을 정의하고, 최종값(W8=현재 signals)에서 역으로
+// 8주 궤적을 만든다. rapid=true면 W1~W5 완만한 베이스라인 후 W6~W8 급격히 최종값으로(결합 급락).
+const HEALTHY = { power: 5, medical: 20, mail: 0, telecom: 0, isolation: 4 };
+const SEVERE = { power: 98, medical: 490, mail: 6, telecom: 4, isolation: 0 };
+const RANGE = {
+  power: [0, 100],
+  medical: [0, 500],
+  mail: [0, 6],
+  telecom: [0, 4],
+  isolation: [0, 5],
+};
+const FIELD = {
+  power: "powerDropPct",
+  medical: "daysSinceMedical",
+  mail: "mailUncollectedWeeks",
+  telecom: "telecomOverdueMonths",
+  isolation: "welfareCenterVisits6mo",
+};
+const lerp = (a, b, t) => a + (b - a) * t;
+function clampRound(key, v) {
+  const [lo, hi] = RANGE[key];
+  return Math.max(lo, Math.min(hi, Math.round(v)));
+}
+
+/** 한 신호의 8주 시리즈(끝=finalV). trend: up(악화)/down(개선)/flat, rapid: 결합 급락 */
+function seriesForSignal(key, finalV, trend, rapid, noiseAmp) {
+  const out = new Array(8);
+  if (rapid) {
+    // W1~W5: 건강한 쪽에 가까운 베이스라인에서 완만, W6~W8: 급격히 최종값으로 꺾임
+    const baseline = lerp(finalV, HEALTHY[key], 0.72);
+    for (let w = 0; w < 8; w++) {
+      let v;
+      if (w <= 4) v = baseline + jitter(noiseAmp * 0.6);
+      else {
+        const t = (w - 4) / 3; // W6,7,8
+        v = lerp(baseline, finalV, t * t) + jitter(noiseAmp * 0.5); // ease-in 급락
+      }
+      out[w] = clampRound(key, v);
+    }
+  } else {
+    let start;
+    if (trend === "up") start = lerp(finalV, HEALTHY[key], 0.55);
+    else if (trend === "down") start = lerp(finalV, SEVERE[key], 0.4);
+    else start = finalV; // flat
+    for (let w = 0; w < 8; w++) {
+      const t = w / 7;
+      out[w] = clampRound(key, lerp(start, finalV, t) + jitter(noiseAmp));
+    }
   }
-  weeks[7] = finalScore; // 마지막 주 = 현재 점수로 정합
-  return weeks.map((score, idx) => ({ week: `W${idx + 1}`, score }));
+  out[7] = clampRound(key, finalV); // 마지막 주 = 현재 신호값
+  return out;
+}
+
+const NOISE = {
+  power: 4,
+  medical: 12,
+  mail: 0.4,
+  telecom: 0.3,
+  isolation: 0.4,
+};
+
+/** signalHistory(8주) + 그로부터 파생한 점수 history 생성 */
+function buildHistories(signals, profileGroup, trend, rapid) {
+  const series = {};
+  for (const key of SIGNAL_KEYS) {
+    series[key] = seriesForSignal(key, signals[FIELD[key]], trend, rapid, NOISE[key]);
+  }
+  const signalHistory = [];
+  const history = [];
+  for (let w = 0; w < 8; w++) {
+    const wk = `W${w + 1}`;
+    const snap = {
+      week: wk,
+      power: series.power[w],
+      medical: series.medical[w],
+      mail: series.mail[w],
+      telecom: series.telecom[w],
+      isolation: series.isolation[w],
+    };
+    signalHistory.push(snap);
+    const sig = {
+      powerDropPct: snap.power,
+      daysSinceMedical: snap.medical,
+      mailUncollectedWeeks: snap.mail,
+      telecomOverdueMonths: snap.telecom,
+      welfareCenterVisits6mo: snap.isolation,
+    };
+    history.push({ week: wk, score: computeScore(sig, profileGroup) });
+  }
+  return { signalHistory, history };
 }
 
 let serial = 100;
@@ -114,14 +194,19 @@ function makeHousehold(opts) {
     registeredAlone = true,
     haengbokFlagged = false,
     trend = pick(["up", "down", "flat", "flat"]),
+    rapid = false,
     dong = pick(DONGS),
     coords,
     repeatedFlags,
-    history,
   } = opts;
   const ageBand =
     profileGroup === "elderly" ? pick(["70s", "80s"]) : pick(["50s", "60s"]);
-  const finalScore = computeScore(signals, profileGroup);
+  const { signalHistory, history } = buildHistories(
+    signals,
+    profileGroup,
+    trend,
+    rapid
+  );
   return {
     id: makeId(dong),
     dong: `${dong}동`,
@@ -133,9 +218,10 @@ function makeHousehold(opts) {
     repeatedFlags: repeatedFlags ?? defaultRepeatedFlags(groundTruthRisk),
     coords: coords ?? coordsFor(dong),
     signals,
+    signalHistory,
     groundTruthRisk,
     caseType,
-    history: history ?? makeHistory(finalScore, trend),
+    history,
   };
 }
 
@@ -215,37 +301,38 @@ for (let i = 0; i < 7; i++) {
   );
 }
 
-// ── 5) ★ 유형 B: 임계 미만의 위험 조합 (⑤단계 주인공) ─────────────
-// 모든 신호가 각 임계(power80/medical365/mail4/telecom3) "직전"이라 OR 규칙엔
-// 안 걸리지만, 가중합으로 보면 위험. 조합 방식이 추가로 건지는 핵심 케이스.
+// ── 5) ★ 유형 B: 임계 미만의 위험 조합 (조합 방식·결합 급락 주인공) ─────────────
+// 모든 신호가 각 임계 "직전"이라 OR 규칙엔 안 걸리지만, 가중합·결합이상으로 보면 위험.
+// 절반은 rapid(결합 급락) → ML 다변량 이상탐지가 "사람 눈으로 못 잡는 급락"으로 포착.
 const typeBSignals = [
-  { powerDropPct: 74, daysSinceMedical: 330, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 68, daysSinceMedical: 350, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 78, daysSinceMedical: 300, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 72, daysSinceMedical: 340, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 70, daysSinceMedical: 320, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 76, daysSinceMedical: 355, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
+  { sig: { powerDropPct: 74, daysSinceMedical: 330, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
+  { sig: { powerDropPct: 68, daysSinceMedical: 350, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
+  { sig: { powerDropPct: 78, daysSinceMedical: 300, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: false },
+  { sig: { powerDropPct: 72, daysSinceMedical: 340, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
+  { sig: { powerDropPct: 70, daysSinceMedical: 320, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: false },
+  { sig: { powerDropPct: 76, daysSinceMedical: 355, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
 ];
-for (const signals of typeBSignals) {
+for (const { sig, rapid } of typeBSignals) {
   households.push(
     makeHousehold({
       profileGroup: "elderly",
       groundTruthRisk: pick(["high", "mid"]),
       caseType: "B",
-      trend: pick(["up", "up", "flat"]),
-      signals,
+      trend: "up",
+      rapid,
+      signals: sig,
     })
   );
 }
 
-// ── 6) 유형 A: 등록-실거주 불일치 (등록상 동거지만 실제 단절 추정) ──
+// ── 6) 유형 A: 등록-실거주 불일치 ──────────────────────────────────
 for (let i = 0; i < 4; i++) {
   households.push(
     makeHousehold({
       profileGroup: "elderly",
       groundTruthRisk: pick(["high", "mid"]),
       caseType: "A",
-      registeredAlone: false, // ← 등록상 가족과 동거 → 1인가구 필터에 안 걸림
+      registeredAlone: false,
       trend: pick(["up", "flat"]),
       signals: {
         powerDropPct: ri(60, 85),
@@ -259,30 +346,30 @@ for (let i = 0; i < 4; i++) {
 }
 
 // ── 7) ★ 유형 C: 분류 밖 중장년 1인가구 (② 집단특화 시연 핵심) ─────
-// 통신연체·고립 신호가 높음. elderly(범용) 모형으로 보면 저평가되지만,
-// middleaged 특화 모형(telecom·isolation 가중치↑)으로 보면 고위험으로 드러남.
+// 통신연체·고립 신호 높음. elderly 모형 저평가 / middleaged 특화 모형 고위험.
+// 일부 rapid → 경제·고립 결합 급락.
 const typeCSignals = [
-  { powerDropPct: 42, daysSinceMedical: 90, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 38, daysSinceMedical: 70, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 50, daysSinceMedical: 110, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 45, daysSinceMedical: 60, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
-  { powerDropPct: 40, daysSinceMedical: 95, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 },
+  { sig: { powerDropPct: 42, daysSinceMedical: 90, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
+  { sig: { powerDropPct: 38, daysSinceMedical: 70, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: false },
+  { sig: { powerDropPct: 50, daysSinceMedical: 110, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: true },
+  { sig: { powerDropPct: 45, daysSinceMedical: 60, mailUncollectedWeeks: 2, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: false },
+  { sig: { powerDropPct: 40, daysSinceMedical: 95, mailUncollectedWeeks: 1, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 }, rapid: false },
 ];
-for (const signals of typeCSignals) {
+for (const { sig, rapid } of typeCSignals) {
   households.push(
     makeHousehold({
       profileGroup: "middleaged",
       groundTruthRisk: "mid",
       caseType: "C",
-      trend: pick(["up", "flat", "up"]),
-      signals,
+      trend: "up",
+      rapid,
+      signals: sig,
     })
   );
 }
 
 // ── 8) 오탐 후보: low인데 단일 신호만 높음 (LLM이 '위험 보류'로 설명) ─
 const falsePosSignals = [
-  // 전력만 급감(장기 외출 가능성), 나머지 정상 → 임계값 방식은 발굴, 조합은 보류
   { powerDropPct: 88, daysSinceMedical: 25, mailUncollectedWeeks: 0, telecomOverdueMonths: 0, welfareCenterVisits6mo: 3 },
   { powerDropPct: 12, daysSinceMedical: 400, mailUncollectedWeeks: 0, telecomOverdueMonths: 0, welfareCenterVisits6mo: 4 },
 ];
@@ -298,10 +385,9 @@ for (const signals of falsePosSignals) {
   );
 }
 
-// ── 9) ★ 근접 군집 + 수원 모녀 모티프 (라동) — 방문 동선 시연 핵심 ──
-// 라동 일대에 고위험 가구를 좌표상 가깝게 배치해 '오늘의 동선' 묶음을 만든다.
-// 그 중 한 건은 수원 모녀 사건 모티프: 반복 통보 8회 + 최근 급상승(+12)으로
-// 우선순위 공식(점수 + 추세, 동점 시 repeatedFlags 우대)상 최상단에 온다.
+// ── 9) ★ 근접 군집 + 수원 모녀 모티프 (라동) — 방문 동선 + 급속악화 시연 핵심 ──
+// 라동 일대 고위험 가구를 좌표상 가깝게 배치. 그 중 한 건은 수원 모녀 모티프:
+// 반복 통보 8회 + rapid(결합 급락)으로 우선순위·급속악화 선별 최상단.
 households.push(
   makeHousehold({
     profileGroup: "elderly",
@@ -311,6 +397,8 @@ households.push(
     haengbokFlagged: false,
     repeatedFlags: 8, // ← 수원 모녀 모티프: 8차례 반복 통보되고도 행동으로 이어지지 못함
     coords: { x: 0.14, y: 0.8 },
+    trend: "up",
+    rapid: true, // 최근 급격한 다변량 악화
     signals: {
       powerDropPct: 92,
       daysSinceMedical: 470,
@@ -318,20 +406,15 @@ households.push(
       telecomOverdueMonths: 4,
       welfareCenterVisits6mo: 0,
     },
-    // 최근 1주 +12점 급상승 (반복·악화가 우선순위로 드러나도록)
-    history: [70, 73, 78, 81, 84, 86, 86, 98].map((score, i) => ({
-      week: `W${i + 1}`,
-      score,
-    })),
   })
 );
 // 같은 라동 인근 고위험 3가구 (좌표 근접 → 한 '방문 묶음'으로)
 const clusterMates = [
-  { coords: { x: 0.21, y: 0.74 }, repeatedFlags: 3, caseType: "B", trend: "up",
+  { coords: { x: 0.21, y: 0.74 }, repeatedFlags: 3, caseType: "B", rapid: true,
     signals: { powerDropPct: 78, daysSinceMedical: 360, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 } },
-  { coords: { x: 0.12, y: 0.84 }, repeatedFlags: 2, caseType: "B", trend: "up",
+  { coords: { x: 0.12, y: 0.84 }, repeatedFlags: 2, caseType: "B", rapid: true,
     signals: { powerDropPct: 72, daysSinceMedical: 350, mailUncollectedWeeks: 3, telecomOverdueMonths: 2, welfareCenterVisits6mo: 0 } },
-  { coords: { x: 0.24, y: 0.82 }, repeatedFlags: 2, caseType: null, trend: "flat",
+  { coords: { x: 0.24, y: 0.82 }, repeatedFlags: 2, caseType: null, rapid: false,
     signals: { powerDropPct: 86, daysSinceMedical: 380, mailUncollectedWeeks: 4, telecomOverdueMonths: 3, welfareCenterVisits6mo: 0 } },
 ];
 for (const m of clusterMates) {
@@ -343,7 +426,8 @@ for (const m of clusterMates) {
       caseType: m.caseType,
       coords: m.coords,
       repeatedFlags: m.repeatedFlags,
-      trend: m.trend,
+      trend: "up",
+      rapid: m.rapid,
       signals: m.signals,
     })
   );
@@ -367,18 +451,17 @@ const dist = { low: 0, mid: 0, high: 0 };
 households.forEach((h) => dist[h.groundTruthRisk]++);
 console.log(`  groundTruth 분포: low ${dist.low} / mid ${dist.mid} / high ${dist.high}`);
 
-// ★ 신규 필드 검산 (coords·repeatedFlags·수원모녀 모티프·근접군집)
-const withCoords = households.filter(
-  (h) => h.coords && h.coords.x >= 0 && h.coords.x <= 1
-).length;
+// ★ 신규 필드 검산
+const withSeries = households.filter((h) => h.signalHistory?.length === 8).length;
 const motif = households.find((h) => h.repeatedFlags >= 8);
-const raResidual = residual.filter((h) => h.dong === "라동").length;
 const weeklyDelta = (h) =>
   h.history.length >= 2
     ? h.history[h.history.length - 1].score - h.history[h.history.length - 2].score
     : 0;
-console.log(`  좌표 보유: ${withCoords}/${households.length}`);
+console.log(`  signalHistory(8주) 보유: ${withSeries}/${households.length}`);
 console.log(
   `  수원모녀 모티프: ${motif ? `${motif.id} (통보 ${motif.repeatedFlags}회, 점수 ${computeScore(motif.signals, motif.profileGroup)}, 최근 +${weeklyDelta(motif)})` : "없음 ⚠️"}`
 );
-console.log(`  라동 잔여(근접군집 포함): ${raResidual}가구`);
+console.log(
+  `  다음 단계: python scripts/run_ml.py (anomaly/cluster/changePoint 추가)`
+);

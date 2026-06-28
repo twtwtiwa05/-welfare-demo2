@@ -9,6 +9,7 @@
 
 import { computeScore, SIGNAL_META } from "./scoring";
 import { weeklyDelta } from "./history";
+import { anomalyScore, isRapidDecline } from "./ml";
 import type { Household, Signals } from "./types";
 
 export const COMBINATION_CUTOFF = 50;
@@ -91,47 +92,111 @@ export function compareMethods(
   };
 }
 
-// ── ★ 추세 반영 우선순위 (plan 9.3) ────────────────────────────────
-// 단순 점수순이 아니라 '최근 추세 상승폭'을 함께 반영한다.
-// ⚠️ 이 순서는 투명 공식이 만든다 — AI(근거 서술 모듈)가 만들지 않는다.
-//    LLM은 "왜 이 순서인지"를 서술만 한다.
+// ── ★ 투명 우선순위 융합 (작업 B-3) ────────────────────────────────
+// 단순 점수순이 아니라 4개 투명 항을 *명시적 가중*으로 합산한다:
+//   priority = 위험점수(가중) + 급속악화(ML 이상점수) + 최근 추세상승 + 반복 통보
+// ⚠️ 블랙박스 랭커 금지(합성 라벨 지도학습 랭킹은 순환적·G1 위반). 가중·규칙은 전부 명시·조정가능.
+//    ML(anomalyScore)은 *판정*이 아니라 우선순위의 한 *입력*일 뿐이다(G2·G4). 최종 결정은 사람.
 
-/** 우선순위 가중치: 최근 1주 상승폭에 곱해 '급격히 악화 중'인 가구를 끌어올린다. */
-export const RISING_WEIGHT = 1.2;
+/** 우선순위 융합 가중치 — 전부 명시·조정가능(가정). */
+export const PRIORITY_WEIGHTS = {
+  /** 위험점수(0~100) 계수 */
+  risk: 1.0,
+  /** 급속·다변량 악화 이상점수(0~1)에 곱하는 가산점 */
+  anomaly: 25,
+  /** 최근 1주 상승폭(양수만)에 곱하는 가산점 */
+  rise: 1.2,
+  /** 반복 통보 1회당 가산점 (수원 모녀 모티프 — 반복·누적 가구를 위로) */
+  repeat: 1.5,
+} as const;
 
-/**
- * 우선순위 점수 = 현재 위험점수 + max(0, 최근 1주 상승폭) × RISING_WEIGHT
- * 상승만 가산한다(하강은 불이익 없음).
- */
+/** 추세 반영 점수(0~100+) — caseMeta의 P1/P2/P3 구간 판정에 쓰는 가벼운 보정 점수 */
+export const RISING_WEIGHT = PRIORITY_WEIGHTS.rise;
 export function priorityScore(h: Household): number {
   const base = computeScore(h.signals, h.profileGroup).score;
   return base + Math.max(0, weeklyDelta(h)) * RISING_WEIGHT;
+}
+
+export interface PriorityBreakdown {
+  /** 위험점수(가중) */
+  riskTerm: number;
+  /** 급속악화(ML 이상) 가산 */
+  anomalyTerm: number;
+  /** 추세상승 가산 */
+  riseTerm: number;
+  /** 반복통보 가산 */
+  repeatTerm: number;
+  /** 합 (정렬 기준) */
+  total: number;
+  /** "왜 위로 왔나" 설명 칩 */
+  reasons: string[];
+}
+
+/** 투명 융합 우선순위 분해 — UI가 "왜 위로 왔나"를 그대로 보여줄 수 있게 */
+export function priorityBreakdown(h: Household): PriorityBreakdown {
+  const base = computeScore(h.signals, h.profileGroup).score;
+  const rise = Math.max(0, weeklyDelta(h));
+  const anom = anomalyScore(h); // 0~1
+  const repeat = h.repeatedFlags;
+
+  const riskTerm = base * PRIORITY_WEIGHTS.risk;
+  const anomalyTerm = anom * PRIORITY_WEIGHTS.anomaly;
+  const riseTerm = rise * PRIORITY_WEIGHTS.rise;
+  const repeatTerm = repeat * PRIORITY_WEIGHTS.repeat;
+
+  const reasons: string[] = [];
+  if (isRapidDecline(h)) reasons.push("급속·다변량 악화");
+  else if (anom >= 0.5) reasons.push("이상 추세 감지");
+  if (rise > 0) reasons.push(`최근 +${rise}점`);
+  if (repeat >= 3) reasons.push(`반복 통보 ${repeat}회`);
+  if (reasons.length === 0) reasons.push(`위험점수 ${base}점`);
+
+  return {
+    riskTerm,
+    anomalyTerm,
+    riseTerm,
+    repeatTerm,
+    total: riskTerm + anomalyTerm + riseTerm + repeatTerm,
+    reasons,
+  };
 }
 
 export interface RankedHousehold {
   household: Household;
   /** 1-based 순위 */
   rank: number;
-  /** 현재 위험점수 */
+  /** 현재 위험점수(가중) */
   score: number;
   /** 최근 1주 상승폭(부호 포함) */
   delta: number;
-  /** 우선순위 점수(정렬 기준) */
+  /** ML 다변량 이상점수 0~1 */
+  anomaly: number;
+  /** 급속·다변량 악화 플래그 */
+  rapid: boolean;
+  /** 융합 우선순위 점수(정렬 기준) */
   priority: number;
+  /** 융합 분해(설명용) */
+  breakdown: PriorityBreakdown;
 }
 
 /**
- * 우선순위 정렬: priorityScore 내림차순.
- * 동점이면 반복 통보(repeatedFlags) 우대 → 수원 모녀처럼 반복·누적된 가구가 위로.
+ * 우선순위 정렬: 융합 점수 내림차순.
+ * 동점이면 반복 통보(repeatedFlags) → 위험점수 순으로 우대.
  */
 export function rankByPriority(households: Household[]): RankedHousehold[] {
   return [...households]
-    .map((h) => ({
-      household: h,
-      score: computeScore(h.signals, h.profileGroup).score,
-      delta: weeklyDelta(h),
-      priority: priorityScore(h),
-    }))
+    .map((h) => {
+      const breakdown = priorityBreakdown(h);
+      return {
+        household: h,
+        score: computeScore(h.signals, h.profileGroup).score,
+        delta: weeklyDelta(h),
+        anomaly: anomalyScore(h),
+        rapid: isRapidDecline(h),
+        priority: breakdown.total,
+        breakdown,
+      };
+    })
     .sort(
       (a, b) =>
         b.priority - a.priority ||

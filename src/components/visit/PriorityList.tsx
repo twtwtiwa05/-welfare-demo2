@@ -1,5 +1,6 @@
 import type { RankedHousehold } from "../../lib/priority";
 import RiskBadge from "../RiskBadge";
+import AnomalyBadge from "../ml/AnomalyBadge";
 import { History, ArrowUpRight, TrendingUp } from "lucide-react";
 
 // 좌측 — 우선순위 리스트. 추세 반영 공식이 만든 순서(AI 아님).
@@ -21,7 +22,8 @@ export default function PriorityList({
         <span className="chip bg-brand-50 text-brand-700">{ranked.length}건</span>
       </div>
       <p className="border-b border-slate-100 bg-slate-50/50 px-4 py-2 text-[11px] leading-relaxed text-slate-400">
-        우선순위 = 위험점수 + 최근 상승폭 (동점 시 반복 통보 우대) · 투명 공식
+        우선순위 = 위험점수 + <b className="text-rose-500">급속악화(ML)</b> + 최근 상승폭 + 반복 통보 ·
+        투명 융합(블랙박스 아님)
       </p>
       <div className="scroll-slim min-h-0 flex-1 divide-y divide-slate-100 overflow-auto">
         {ranked.map((r) => {
@@ -57,7 +59,7 @@ export default function PriorityList({
                       </span>
                     )}
                   </div>
-                  <div className="mt-0.5 flex items-center gap-2 text-[11px]">
+                  <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px]">
                     <span className="font-bold tabular-nums text-slate-700">
                       {r.score}점
                     </span>
@@ -65,6 +67,9 @@ export default function PriorityList({
                       <span className="inline-flex items-center gap-0.5 font-semibold text-red-600">
                         <TrendingUp size={11} /> +{r.delta}
                       </span>
+                    )}
+                    {(r.rapid || r.anomaly >= 0.4) && (
+                      <AnomalyBadge household={h} size="sm" />
                     )}
                   </div>
                 </div>

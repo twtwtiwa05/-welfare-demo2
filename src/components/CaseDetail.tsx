@@ -12,10 +12,14 @@ import {
   type CaseStatus,
 } from "../lib/caseState";
 import type { Household } from "../lib/types";
+import { ml } from "../lib/ml";
 import RiskBadge from "./RiskBadge";
 import RiskTimeline from "./RiskTimeline";
 import SimBadge from "./SimBadge";
 import StatusBadge from "./StatusBadge";
+import AnomalyBadge from "./ml/AnomalyBadge";
+import MlInsightChips from "./ml/MlInsightChips";
+import SignalTrajectory from "./ml/SignalTrajectory";
 import {
   Phone,
   Home,
@@ -26,6 +30,7 @@ import {
   Clock,
   User,
   Quote,
+  Sparkles,
 } from "lucide-react";
 
 type Action = "call" | "visit" | "watch";
@@ -215,12 +220,50 @@ export default function CaseDetail({ household }: { household: Household }) {
           </div>
         </div>
 
-        {/* ── AI 근거 ── */}
+        {/* ── ML 보조선별 (작업 B) ── */}
+        <div>
+          <div className="mb-1.5 flex items-center gap-1.5">
+            <Sparkles size={13} className="text-rose-400" />
+            <span className="section-label">ML 보조선별</span>
+            <SimBadge
+              label="오프라인 ML"
+              title="scripts/run_ml.py가 오프라인 계산. 위험 판정이 아니라 급속악화·군집 보조 신호."
+            />
+          </div>
+          <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <AnomalyBadge household={household} />
+              <MlInsightChips household={household} />
+            </div>
+            {ml(household).topSignals.length > 0 && (
+              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
+                {ml(household)
+                  .topSignals.slice(0, 3)
+                  .map((k) => {
+                    const cp = ml(household).changePoints.find((c) => c.signal === k);
+                    return (
+                      <SignalTrajectory
+                        key={k}
+                        household={household}
+                        signalKey={k}
+                        changeWeek={cp?.week}
+                      />
+                    );
+                  })}
+              </div>
+            )}
+            <p className="text-[11px] leading-relaxed text-slate-400">
+              ML은 우선순위·선별까지만 — 위험 판정과 개입 결정은 담당자(G4).
+            </p>
+          </div>
+        </div>
+
+        {/* ── 근거 서술 (LLM 역할 — 점수·판정 생성 안 함) ── */}
         <div className="rounded-xl border-l-2 border-brand-300 bg-slate-50/80 p-3">
           <div className="mb-1.5 flex items-center gap-1.5">
             <Quote size={13} className="text-slate-400" />
-            <span className="section-label">AI 근거</span>
-            <SimBadge />
+            <span className="section-label">근거 서술</span>
+            <SimBadge label="근거 서술" title="실서비스에선 LLM이 생성(역할 한정). 점수·순서는 만들지 않고 서술만." />
           </div>
           <p className="text-sm leading-relaxed text-slate-800">
             {reason.rationale}

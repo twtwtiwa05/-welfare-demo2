@@ -24,9 +24,21 @@
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
-  /* 일관된 키보드 포커스 (접근성) */
+  /* 일관된 키보드 포커스 (접근성) — 링 대비 3:1↑ 위해 불투명 brand-500 */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+  }
+  /* 스크린리더 전용 텍스트 (시각적 숨김, AT엔 노출) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
 
@@ -116,6 +128,17 @@
   }
   .range-brand::-webkit-slider-thumb:hover {
     transform: scale(1.08);
+  }
+  /* 키보드 포커스 시 썸에 가시 인디케이터 (트랙 outline:none 보완) */
+  .range-brand:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 2px #ffffff,
+      0 0 0 4px theme("colors.brand.600");
+  }
+  .range-brand:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 2px #ffffff,
+      0 0 0 4px theme("colors.brand.600");
   }
   .range-brand:active::-webkit-slider-thumb {
     box-shadow:

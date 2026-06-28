@@ -4,6 +4,7 @@ import type { Household } from "../../lib/types";
 import DedupSummary from "./DedupSummary";
 import Step3Score from "../Step3Score";
 import Step5Priority from "../Step5Priority";
+import CombinedDeclinePanel from "../ml/CombinedDeclinePanel";
 
 const RESIDUAL = HOUSEHOLDS.filter((h) => !h.haengbokFlagged);
 const byId = (id: string) => HOUSEHOLDS.find((h) => h.id === id);
@@ -18,7 +19,13 @@ const SAMPLES = [
 ].filter(Boolean) as { id: string; label: string }[];
 
 // 탭1 — 분석 (받침 ①②). 5단계를 1화면으로 압축. ③ 활용도를 신뢰하게 하는 최소 근거.
-export default function AnalysisTab({ onGotoCase }: { onGotoCase: (id: string) => void }) {
+export default function AnalysisTab({
+  onGotoCase,
+  onOpenRefs,
+}: {
+  onGotoCase: (id: string) => void;
+  onOpenRefs?: () => void;
+}) {
   const [selId, setSelId] = useState(SAMPLES[0]?.id ?? RESIDUAL[0]?.id ?? "");
   const selected = byId(selId) ?? RESIDUAL[0];
 
@@ -61,7 +68,7 @@ export default function AnalysisTab({ onGotoCase }: { onGotoCase: (id: string) =
             ‘유형 C’에서 집단 모형을 바꿔 점수 역전을 확인해 보세요
           </span>
         </div>
-        <Step3Score key={selected.id} household={selected} />
+        <Step3Score key={selected.id} household={selected} onOpenRefs={onOpenRefs} />
       </Section>
 
       <Section
@@ -70,6 +77,14 @@ export default function AnalysisTab({ onGotoCase }: { onGotoCase: (id: string) =
         sub="임계 미만 조합도 후보로 — 거짓음성(놓침) 관점. 절대 배수 주장 없음"
       >
         <Step5Priority onSelect={onGotoCase} />
+      </Section>
+
+      <Section
+        n={4}
+        title="결합 급락 — ML 다변량 이상탐지"
+        sub="개별 신호는 임계 미만이지만 동시에 꺾이는 급락을 ML이 포착 — ‘사람이 그래프 하나씩 보면 되잖아’의 반증"
+      >
+        <CombinedDeclinePanel onGotoCase={onGotoCase} />
       </Section>
     </div>
   );
