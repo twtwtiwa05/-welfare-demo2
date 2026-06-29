@@ -9,8 +9,10 @@ import References from "./components/References";
 import RiskBadge from "./components/RiskBadge";
 import BottomNav, { type BottomNavItem } from "./components/BottomNav";
 import LoginScreen from "./components/auth/LoginScreen";
+import MobileShell from "./components/mobile/MobileShell";
 import { CaseStateProvider } from "./lib/caseState";
 import { useAuth } from "./lib/auth";
+import { useIsMobile } from "./lib/useIsMobile";
 import { HOUSEHOLDS } from "./lib/data";
 import { computeScore } from "./lib/scoring";
 import type { Household } from "./lib/types";
@@ -43,6 +45,7 @@ const sc = (h: Household) => computeScore(h.signals, h.profileGroup).score;
 
 export default function App() {
   const { user } = useAuth();
+  const isMobile = useIsMobile();
   const [tab, setTab] = useState<Tab>("utilization");
   const [selectedId, setSelectedId] = useState(
     [...RESIDUAL].sort((a, b) => sc(b) - sc(a))[0]?.id ?? ""
@@ -81,6 +84,14 @@ export default function App() {
 
   // 인증 게이트 (작업 C) — 미로그인 시 로그인 화면
   if (!user) return <LoginScreen />;
+
+  // ★ 모바일은 현장용 2탭 앱으로 완전히 분리 (데스크톱 발표용 4탭과 별개)
+  if (isMobile)
+    return (
+      <CaseStateProvider>
+        <MobileShell />
+      </CaseStateProvider>
+    );
 
   const activeTabLabel = TABS.find((t) => t.key === tab)?.label ?? "";
 
