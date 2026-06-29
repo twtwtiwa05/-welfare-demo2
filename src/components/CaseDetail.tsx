@@ -12,13 +12,11 @@ import {
   type CaseStatus,
 } from "../lib/caseState";
 import type { Household } from "../lib/types";
-import { ml } from "../lib/ml";
+import { ml, isRapidDecline, anomalyLevel } from "../lib/ml";
 import RiskBadge from "./RiskBadge";
 import RiskTimeline from "./RiskTimeline";
 import SimBadge from "./SimBadge";
 import StatusBadge from "./StatusBadge";
-import AnomalyBadge from "./ml/AnomalyBadge";
-import MlInsightChips from "./ml/MlInsightChips";
 import SignalTrajectory from "./ml/SignalTrajectory";
 import {
   Phone,
@@ -31,6 +29,8 @@ import {
   User,
   Quote,
   Sparkles,
+  Zap,
+  Activity,
 } from "lucide-react";
 
 type Action = "call" | "visit" | "watch";
@@ -230,32 +230,7 @@ export default function CaseDetail({ household }: { household: Household }) {
               title="scripts/run_ml.py가 오프라인 계산. 위험 판정이 아니라 급속악화·군집 보조 신호."
             />
           </div>
-          <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50/60 p-3">
-            <div className="flex flex-wrap items-center gap-1.5">
-              <AnomalyBadge household={household} />
-              <MlInsightChips household={household} />
-            </div>
-            {ml(household).topSignals.length > 0 && (
-              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
-                {ml(household)
-                  .topSignals.slice(0, 3)
-                  .map((k) => {
-                    const cp = ml(household).changePoints.find((c) => c.signal === k);
-                    return (
-                      <SignalTrajectory
-                        key={k}
-                        household={household}
-                        signalKey={k}
-                        changeWeek={cp?.week}
-                      />
-                    );
-                  })}
-              </div>
-            )}
-            <p className="text-[11px] leading-relaxed text-slate-400">
-              ML은 우선순위·선별까지만 — 위험 판정과 개입 결정은 담당자(G4).
-            </p>
-          </div>
+          <MlSummary household={household} />
         </div>
 
         {/* ── 근거 서술 (LLM 역할 — 점수·판정 생성 안 함) ── */}
@@ -358,6 +333,71 @@ export default function CaseDetail({ household }: { household: Household }) {
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ML 보조선별 — 한 줄 상태 + 최근 변화 2개. 중복 배지 제거로 한눈에.
+function MlSummary({ household }: { household: Household }) {
+  const m = ml(household);
+  const rapid = isRapidDecline(household);
+  const lvl = anomalyLevel(m.anomalyScore);
+  const statusText = rapid
+    ? "급속·다변량 악화 감지"
+    : m.anomalyScore >= 0.4
+      ? "이상 추세 감지"
+      : "특이 추세 없음";
+  const iconWrap =
+    rapid || lvl === "high"
+      ? "bg-rose-100 text-rose-600"
+      : lvl === "mid"
+        ? "bg-amber-100 text-amber-600"
+        : "bg-slate-200 text-slate-500";
+  const top = m.topSignals.slice(0, 2);
+
+  return (
+    <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-3.5">
+      <div className="flex items-center gap-2.5">
+        <span
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconWrap}`}
+        >
+          {rapid ? <Zap size={17} /> : <Activity size={17} />}
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="text-sm font-bold text-slate-800">{statusText}</div>
+          <div className="truncate text-[11px] text-slate-500">
+            {m.clusterId >= 0 ? `${m.clusterLabel} · ` : ""}이상도{" "}
+            {Math.round(m.anomalyScore * 100)}
+            {m.anomalyPercentile > 0 &&
+              ` · 상위 ${Math.max(1, Math.round(100 - m.anomalyPercentile))}%`}
+          </div>
+        </div>
+      </div>
+
+      {top.length > 0 && (
+        <div className="mt-3 border-t border-slate-200/70 pt-3">
+          <div className="mb-2 text-[11px] font-semibold text-slate-500">
+            최근 8주 주요 변화
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {top.map((k) => {
+              const cp = m.changePoints.find((c) => c.signal === k);
+              return (
+                <SignalTrajectory
+                  key={k}
+                  household={household}
+                  signalKey={k}
+                  changeWeek={cp?.week}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <p className="mt-3 text-[11px] leading-relaxed text-slate-400">
+        ML은 우선순위·선별까지 — 위험 판정과 개입 결정은 담당자.
+      </p>
     </div>
   );
 }

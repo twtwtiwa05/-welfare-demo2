@@ -1,22 +1,39 @@
+import { useEffect, useRef } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import { computeScore, riskBand, type Band } from "../../lib/scoring";
 import type { Household } from "../../lib/types";
 import SimBadge from "../SimBadge";
 import { MapPin } from "lucide-react";
 
-// SVG 색 (Tailwind 클래스가 svg fill에 안 먹어 hex 직접 사용)
+// ★ 실제 지도(OpenStreetMap) 위에 방문 동선을 올린다 — 사실감.
+// ⚠️ 좌표는 합성(0~1)이며, 데모 사실감을 위해 실제 주거지(수원 인근) 위에 *예시 위치*로 매핑한다.
+//    실제 주소가 아니다 — 실서비스에선 법적 근거 하 재식별 후에만 실위치 표시가 가능하다.
 const DOT: Record<Band, string> = {
   high: "#ef4444",
   mid: "#f59e0b",
   low: "#94a3b8",
 };
-
 const sc = (h: Household) => computeScore(h.signals, h.profileGroup).score;
-const PAD = 8;
-const SPAN = 84;
-const mx = (x: number) => PAD + x * SPAN;
-const my = (y: number) => PAD + y * SPAN;
 
-// 우측 상단 — 방문 동선 지도. 합성 좌표를 개념 지도에 찍고, 선택된 묶음의 경로를 번호선으로.
+// 합성 좌표(0~1) → 위경도. 수원 인근 ~2km 박스(세 모녀 사건 맥락).
+const LAT0 = 37.2636;
+const LAT_SPAN = 0.016;
+const LNG0 = 127.0286;
+const LNG_SPAN = 0.02;
+function toLatLng(h: Household): [number, number] {
+  return [LAT0 + (1 - h.coords.y) * LAT_SPAN, LNG0 + h.coords.x * LNG_SPAN];
+}
+
+function numberedIcon(n: number, color: string): L.DivIcon {
+  return L.divIcon({
+    className: "",
+    html: `<div style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9999px;background:#fff;border:2.5px solid ${color};color:#1e293b;font-weight:700;font-size:13px;box-shadow:0 1px 5px rgba(15,23,42,.35)">${n}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+}
+
 export default function RouteMap({
   all,
   stops,
@@ -26,112 +43,110 @@ export default function RouteMap({
   stops: Household[];
   onPick: (id: string) => void;
 }) {
-  const stopIds = new Set(stops.map((s) => s.id));
-  const points = stops.map((h) => `${mx(h.coords.x)},${my(h.coords.y)}`).join(" ");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const layerRef = useRef<L.LayerGroup | null>(null);
+  const onPickRef = useRef(onPick);
+  onPickRef.current = onPick;
+
+  // 지도 1회 초기화
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+    const map = L.map(containerRef.current, {
+      zoomControl: true,
+      scrollWheelZoom: false, // 페이지 스크롤 우선 (모바일 친화)
+      attributionControl: true,
+    });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap",
+    }).addTo(map);
+    map.setView([LAT0 + LAT_SPAN / 2, LNG0 + LNG_SPAN / 2], 15);
+    layerRef.current = L.layerGroup().addTo(map);
+    mapRef.current = map;
+    // 컨테이너 사이징 보정
+    const t = window.setTimeout(() => map.invalidateSize(), 80);
+    return () => {
+      window.clearTimeout(t);
+      map.remove();
+      mapRef.current = null;
+      layerRef.current = null;
+    };
+  }, []);
+
+  // 마커·경로 갱신
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = layerRef.current;
+    if (!map || !layer) return;
+    layer.clearLayers();
+
+    const stopIds = new Set(stops.map((s) => s.id));
+
+    // 경로 밖 후보 (흐리게)
+    all.forEach((h) => {
+      if (stopIds.has(h.id)) return;
+      L.circleMarker(toLatLng(h), {
+        radius: 5,
+        color: DOT[riskBand(sc(h))],
+        weight: 1,
+        opacity: 0.35,
+        fillOpacity: 0.3,
+      })
+        .addTo(layer)
+        .on("click", () => onPickRef.current(h.id));
+    });
+
+    // 경로선
+    if (stops.length > 1) {
+      L.polyline(stops.map(toLatLng), {
+        color: "#2f6bbf",
+        weight: 4,
+        opacity: 0.85,
+        lineJoin: "round",
+      }).addTo(layer);
+    }
+
+    // 번호 정류장
+    stops.forEach((h, i) => {
+      L.marker(toLatLng(h), { icon: numberedIcon(i + 1, DOT[riskBand(sc(h))]) })
+        .addTo(layer)
+        .on("click", () => onPickRef.current(h.id));
+    });
+
+    // 화면 맞춤
+    if (stops.length > 0) {
+      map.fitBounds(L.latLngBounds(stops.map(toLatLng)).pad(0.6), {
+        maxZoom: 16,
+        animate: false,
+      });
+    }
+  }, [all, stops]);
 
   return (
     <div className="card overflow-hidden">
       <div className="card-head">
         <span className="card-title flex items-center gap-1.5">
-          <MapPin size={15} className="text-brand-600" /> 방문 동선 지도
+          <MapPin size={15} className="text-brand-600" /> 방문 동선
         </span>
-        <span className="text-[11px] text-slate-400">개념 지도 · 가상 행정동</span>
+        <span className="text-[11px] text-slate-400">예시 위치 · 실제 주소 아님</span>
       </div>
 
-      <div className="bg-gradient-to-br from-slate-50 to-slate-100/60 p-4">
-        <svg viewBox="0 0 100 100" className="h-auto w-full" style={{ maxHeight: "46vh" }}>
-          {/* 장식 격자 */}
-          <g stroke="#eef2f7" strokeWidth="0.4">
-            {[20, 40, 60, 80].map((v) => (
-              <line key={`v${v}`} x1={v} y1={4} x2={v} y2={96} />
-            ))}
-            {[20, 40, 60, 80].map((v) => (
-              <line key={`h${v}`} x1={4} y1={v} x2={96} y2={v} />
-            ))}
-          </g>
+      <div
+        ref={containerRef}
+        className="w-full"
+        style={{ height: "46vh", minHeight: 280, zIndex: 0 }}
+        role="img"
+        aria-label={`방문 동선 지도 — ${stops.length}곳을 번호 순서로 연결`}
+      />
 
-          {/* 선택된 묶음의 경로선 (번호 순서) */}
-          {stops.length > 1 && (
-            <polyline
-              points={points}
-              fill="none"
-              stroke="#2f6bbf"
-              strokeWidth="1.1"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              pathLength={1}
-              className="route-line"
-              opacity={0.85}
-            />
-          )}
-
-          {/* 경로 밖 후보 점 (흐리게) */}
-          {all.map((h) => {
-            if (stopIds.has(h.id)) return null;
-            const band = riskBand(sc(h));
-            return (
-              <circle
-                key={h.id}
-                cx={mx(h.coords.x)}
-                cy={my(h.coords.y)}
-                r={1.6}
-                fill={DOT[band]}
-                opacity={0.3}
-                onClick={() => onPick(h.id)}
-                style={{ cursor: "pointer" }}
-              >
-                <title>{`${h.id} · ${sc(h)}점`}</title>
-              </circle>
-            );
-          })}
-
-          {/* 경로 정류장 (번호) */}
-          {stops.map((h, i) => {
-            const band = riskBand(sc(h));
-            return (
-              <g
-                key={h.id}
-                onClick={() => onPick(h.id)}
-                style={{ cursor: "pointer" }}
-              >
-                <circle
-                  cx={mx(h.coords.x)}
-                  cy={my(h.coords.y)}
-                  r={3.3}
-                  fill="#ffffff"
-                  stroke={DOT[band]}
-                  strokeWidth={1.3}
-                />
-                <text
-                  x={mx(h.coords.x)}
-                  y={my(h.coords.y)}
-                  fontSize="3.6"
-                  fontWeight="700"
-                  fill="#1e293b"
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                >
-                  {i + 1}
-                </text>
-                <title>{`${i + 1}. ${h.id} · ${sc(h)}점`}</title>
-              </g>
-            );
-          })}
-        </svg>
-
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400">
-          <span>번호 = 방문 순서 · 색 = 위험 구간</span>
-          <Legend color={DOT.high} label="고위험" />
-          <Legend color={DOT.mid} label="주의" />
-          <Legend color={DOT.low} label="관찰" />
-        </div>
-      </div>
-
-      <div className="flex items-start gap-1.5 border-t border-slate-100 bg-amber-50/40 px-4 py-2 text-[11px] leading-relaxed text-slate-500">
-        <SimBadge label="합성 좌표" />
-        <span>
-          실서비스에선 법적 근거 하 재식별 후에만 지도 표시가 가능합니다. 이동시간
-          절감 수치는 제시하지 않습니다 — 작동 방식만 시연합니다.
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-slate-100 px-4 py-2 text-[11px] text-slate-400">
+        <span>번호 = 방문 순서</span>
+        <Legend color={DOT.high} label="고위험" />
+        <Legend color={DOT.mid} label="주의" />
+        <Legend color={DOT.low} label="관찰" />
+        <span className="ml-auto inline-flex items-center gap-1">
+          <SimBadge label="합성 좌표" /> 실위치 아님
         </span>
       </div>
     </div>

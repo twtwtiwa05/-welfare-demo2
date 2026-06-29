@@ -1,15 +1,5 @@
 import { useState, type FormEvent } from "react";
-import {
-  ShieldCheck,
-  Lock,
-  User,
-  LogIn,
-  AlertCircle,
-  Info,
-  Layers,
-  Sparkles,
-  Route,
-} from "lucide-react";
+import { ShieldCheck, Lock, User, LogIn, AlertCircle, Info } from "lucide-react";
 import { useAuth, DEMO_ACCOUNTS } from "../../lib/auth";
 
 // 데모 로그인 화면 (작업 C). "정말 공무원이 쓰는 앱처럼" — 브랜드 + 폼 + 정직성 표기.
@@ -38,32 +28,38 @@ export default function LoginScreen() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="grid w-full max-w-4xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card-hover lg:grid-cols-2">
-        {/* 좌: 브랜드 패널 (데스크톱) */}
-        <div className="relative hidden flex-col justify-between bg-gradient-to-br from-brand-700 to-brand-900 p-8 text-white lg:flex">
-          <div>
-            <div className="mb-5 flex items-center gap-2.5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25">
-                <ShieldCheck size={24} strokeWidth={2.2} />
-              </div>
-              <div className="leading-tight">
-                <div className="text-[15px] font-bold">복지망 발굴·모니터링</div>
-                <div className="text-xs text-brand-100/80">보조 시스템</div>
-              </div>
+        {/* 좌: 브랜드 패널 (데스크톱) — 심플·임팩트 */}
+        <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-brand-700 via-brand-800 to-brand-950 p-10 text-white lg:flex">
+          {/* 은은한 광 */}
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-400/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-brand-500/15 blur-3xl" />
+
+          <div className="relative flex items-center gap-2.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
+              <ShieldCheck size={20} strokeWidth={2.2} />
             </div>
-            <h2 className="text-2xl font-bold leading-snug">
-              잔여 사각지대를
+            <span className="text-xs font-semibold tracking-wide text-brand-100/70">
+              복지망 발굴·모니터링 보조 시스템
+            </span>
+          </div>
+
+          <div className="relative">
+            <h2 className="text-[2.75rem] font-bold leading-[1.08] tracking-tight">
+              한 사람도
               <br />
-              <span className="text-brand-100">행동 계획</span>으로.
+              놓치지 않게.
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-brand-100/85">
-              투명한 위험 점수 · ML 급속악화 선별 · 방문 동선을 한 화면에서.
-              점수는 투명 공식, 근거는 자동 서술, 결정은 사람.
+            <p className="mt-5 max-w-[16rem] text-sm leading-relaxed text-brand-100/70">
+              흩어진 위기 신호를 모아, 오늘 가야 할 곳을 가장 먼저.
             </p>
           </div>
-          <div className="space-y-2">
-            <Principle icon={<Layers size={14} />} text="투명 점수 — 결정론 공식(블랙박스 아님)" />
-            <Principle icon={<Sparkles size={14} />} text="ML 보조선별 — 판정이 아니라 우선순위" />
-            <Principle icon={<Route size={14} />} text="방문 동선 — 결정은 담당자" />
+
+          <div className="relative flex items-center gap-2.5 text-xs font-medium text-brand-100/45">
+            <span>발굴</span>
+            <span className="h-1 w-1 rounded-full bg-brand-100/30" />
+            <span>우선순위</span>
+            <span className="h-1 w-1 rounded-full bg-brand-100/30" />
+            <span>방문 동선</span>
           </div>
         </div>
 
@@ -169,15 +165,6 @@ export default function LoginScreen() {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Principle({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <div className="flex items-center gap-2 text-sm text-brand-100/90">
-      <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/10">{icon}</span>
-      {text}
     </div>
   );
 }
