@@ -107,9 +107,11 @@ export default function App() {
                   <ShieldCheck size={20} strokeWidth={2.2} />
                 </div>
                 <div className="hidden leading-tight sm:block">
-                  <h1 className="text-[15px] font-bold text-slate-800">
-                    복지망 발굴·모니터링{" "}
-                    <span className="text-brand-600">보조 시스템</span>
+                  <h1 className="text-[16px] font-bold text-slate-800">
+                    <span className="text-brand-600">이어줌</span>
+                    <span className="ml-2 text-[12px] font-medium text-slate-400">
+                      복지 사각지대 발굴·모니터링
+                    </span>
                   </h1>
                   <p className="text-caption text-slate-400">
                     점수는 투명 공식 · 근거는 자동 서술 · 결정은 사람

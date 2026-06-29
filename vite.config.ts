@@ -10,10 +10,10 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "apple-touch-icon.png"],
       manifest: {
-        name: "복지망 발굴·모니터링 보조 시스템",
-        short_name: "복지망 보조",
+        name: "이어줌 — 복지 사각지대 발굴·모니터링",
+        short_name: "이어줌",
         description:
-          "투명 위험 점수 · ML 급속악화 선별 · 방문 동선으로 발굴 명단을 '행동 계획'으로 (합성 데이터 PoC).",
+          "끊긴 위기 신호와 복지를 잇는 보조 시스템 — 투명 위험 점수 · ML 급속악화 선별 · 방문 동선 (합성 데이터 PoC).",
         lang: "ko",
         theme_color: "#2f6bbf",
         background_color: "#f1f5f9",

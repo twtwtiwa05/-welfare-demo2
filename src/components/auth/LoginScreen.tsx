@@ -39,18 +39,14 @@ export default function LoginScreen() {
               <ShieldCheck size={20} strokeWidth={2.2} />
             </div>
             <span className="text-xs font-semibold tracking-wide text-brand-100/70">
-              복지망 발굴·모니터링 보조 시스템
+              복지 사각지대 발굴·모니터링 보조 시스템
             </span>
           </div>
 
           <div className="relative">
-            <h2 className="text-[2.75rem] font-bold leading-[1.08] tracking-tight">
-              한 사람도
-              <br />
-              놓치지 않게.
-            </h2>
-            <p className="mt-5 max-w-[16rem] text-sm leading-relaxed text-brand-100/70">
-              흩어진 위기 신호를 모아, 오늘 가야 할 곳을 가장 먼저.
+            <h2 className="text-[3.5rem] font-bold leading-none tracking-tight">이어줌</h2>
+            <p className="mt-3.5 text-sm font-medium text-brand-100/75">
+              끊긴 위기 신호와 복지를 잇습니다.
             </p>
           </div>
 
