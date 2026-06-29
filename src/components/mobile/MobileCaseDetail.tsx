@@ -38,9 +38,9 @@ export default function MobileCaseDetail({
         </button>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <span className="font-mono text-[15px] font-bold leading-tight text-slate-800">
+            <h1 className="font-mono text-[15px] font-bold leading-tight text-slate-800">
               {h.id}
-            </span>
+            </h1>
             {emerg && (
               <span className="inline-flex items-center gap-0.5 rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">
                 <Siren size={9} aria-hidden /> 긴급 SOS
@@ -68,7 +68,7 @@ export default function MobileCaseDetail({
               : "border-2 border-red-300 bg-red-50 text-red-600 active:bg-red-100"
           }`}
         >
-          <Siren size={20} /> {emerg ? "긴급 상황 — 관리" : "긴급 SOS"}
+          <Siren size={20} aria-hidden /> {emerg ? "긴급 상황 — 관리" : "긴급 SOS"}
         </button>
       </div>
 
@@ -77,7 +77,7 @@ export default function MobileCaseDetail({
           household={h}
           registered={emerg}
           onToggle={() => {
-            setEmergency(id, !emerg);
+            setEmergency(id, !isEmergency(id));
             setSosOpen(false);
           }}
           onClose={() => setSosOpen(false)}

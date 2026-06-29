@@ -12,7 +12,7 @@ export function useIsMobile(): boolean {
   useEffect(() => {
     const mql = window.matchMedia(QUERY);
     const onChange = () => setIsMobile(mql.matches);
-    onChange();
+    // 초기값은 useState 초기화 함수가 이미 읽음 — 변경 구독만.
     mql.addEventListener("change", onChange);
     return () => mql.removeEventListener("change", onChange);
   }, []);

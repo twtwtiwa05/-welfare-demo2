@@ -54,7 +54,10 @@ export default function MobileCases({
     <div className="px-3 pb-2">
       {/* 긴급 SOS 배너 */}
       {emergCount > 0 && (
-        <div className="mb-3 flex items-center gap-2 rounded-xl bg-red-600 px-3.5 py-3 text-white shadow-card">
+        <div
+          role="alert"
+          className="mb-3 flex items-center gap-2 rounded-xl bg-red-600 px-3.5 py-3 text-white shadow-card"
+        >
           <Siren size={18} className="shrink-0 animate-pulse" aria-hidden />
           <span className="flex-1 text-sm font-bold">
             긴급 SOS {emergCount}건 — 즉시 확인 필요
@@ -86,7 +89,11 @@ export default function MobileCases({
       </div>
 
       {/* 상태 필터 칩 */}
-      <div className="mb-3 flex gap-1.5 overflow-x-auto pb-1">
+      <div
+        role="radiogroup"
+        aria-label="케이스 상태 필터"
+        className="mb-3 flex gap-1.5 overflow-x-auto pb-1"
+      >
         <FilterChip active={statusFilter === "all"} onClick={() => setStatusFilter("all")}>
           전체 {ranked.length}
         </FilterChip>
@@ -99,6 +106,10 @@ export default function MobileCases({
           );
         })}
       </div>
+
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        케이스 {filtered.length}건 표시
+      </p>
 
       {/* 케이스 카드 목록 */}
       <ul className="space-y-2">
@@ -128,7 +139,7 @@ export default function MobileCases({
                   }`}
                 >
                   {emerg ? (
-                    <Siren size={20} />
+                    <Siren size={20} aria-hidden />
                   ) : (
                     <>
                       <span className="text-lg font-bold leading-none">{r.score}</span>
@@ -205,7 +216,8 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      aria-pressed={active}
+      role="radio"
+      aria-checked={active}
       className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
         active
           ? "border-brand-300 bg-brand-50 text-brand-700"

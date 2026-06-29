@@ -39,6 +39,7 @@ export default function MobileVisit({
   const group = groups[gi] ?? groups[0];
   const stops = group?.ordered ?? [];
   const doneCount = stops.filter((s) => visited.has(s.id)).length;
+  const sosHousehold = sosFor ? getHousehold(sosFor) : null;
 
   function toggleVisited(id: string) {
     setVisited((prev) => {
@@ -83,7 +84,15 @@ export default function MobileVisit({
           </div>
         </div>
         {/* 진행 바 */}
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white shadow-inset">
+        <div
+          className="mt-3 h-1.5 overflow-hidden rounded-full bg-white shadow-inset"
+          role="progressbar"
+          aria-valuenow={doneCount}
+          aria-valuemin={0}
+          aria-valuemax={stops.length}
+          aria-valuetext={`${stops.length}곳 중 ${doneCount}곳 방문 완료`}
+          aria-label="방문 진행률"
+        >
           <div
             className="h-full rounded-full bg-brand-500 transition-all duration-300"
             style={{ width: `${(doneCount / stops.length) * 100}%` }}
@@ -96,7 +105,7 @@ export default function MobileVisit({
         <div className="mb-3 flex gap-1.5 overflow-x-auto pb-1">
           {groups.map((g, i) => (
             <button
-              key={i}
+              key={g.dong}
               onClick={() => setGi(i)}
               aria-pressed={i === gi}
               className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
@@ -173,25 +182,28 @@ export default function MobileVisit({
                   <div className="mt-2.5 flex items-center gap-2">
                     <a
                       href={`tel:${tel}`}
+                      aria-label={`${h.id} 전화 걸기`}
                       className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2 text-xs font-semibold text-white active:bg-brand-700"
                     >
-                      <Phone size={13} /> 전화
+                      <Phone size={13} aria-hidden /> 전화
                     </a>
                     <button
                       onClick={() => onOpenCase(h.id)}
                       className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 active:bg-slate-50"
                     >
-                      상세 <ChevronRight size={13} />
+                      상세 <ChevronRight size={13} aria-hidden />
                     </button>
                     <button
                       onClick={() => toggleVisited(h.id)}
+                      aria-pressed={isVisited}
+                      aria-label={isVisited ? "방문 완료됨, 취소하려면 탭" : "방문 완료로 표시"}
                       className={`ml-auto rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
                         isVisited
                           ? "bg-emerald-100 text-emerald-700"
                           : "border border-slate-200 bg-white text-slate-500 active:bg-slate-50"
                       }`}
                     >
-                      {isVisited ? "방문함 ✓" : "방문 완료"}
+                      {isVisited ? "방문함" : "방문 완료"}
                     </button>
                   </div>
 
@@ -204,7 +216,7 @@ export default function MobileVisit({
                         : "border border-red-200 bg-red-50/70 text-red-600 active:bg-red-100"
                     }`}
                   >
-                    <Siren size={13} /> {emerg ? "긴급 상황 — 관리" : "긴급 SOS"}
+                    <Siren size={13} aria-hidden /> {emerg ? "긴급 상황 — 관리" : "긴급 SOS"}
                   </button>
                 </div>
               </div>
@@ -217,22 +229,17 @@ export default function MobileVisit({
         순서·포함 여부는 담당자가 조정합니다. 좌표는 합성 데이터입니다.
       </p>
 
-      {sosFor &&
-        (() => {
-          const h = getHousehold(sosFor);
-          if (!h) return null;
-          return (
-            <MobileSosSheet
-              household={h}
-              registered={isEmergency(sosFor)}
-              onToggle={() => {
-                setEmergency(sosFor, !isEmergency(sosFor));
-                setSosFor(null);
-              }}
-              onClose={() => setSosFor(null)}
-            />
-          );
-        })()}
+      {sosHousehold && (
+        <MobileSosSheet
+          household={sosHousehold}
+          registered={isEmergency(sosHousehold.id)}
+          onToggle={() => {
+            setEmergency(sosHousehold.id, !isEmergency(sosHousehold.id));
+            setSosFor(null);
+          }}
+          onClose={() => setSosFor(null)}
+        />
+      )}
     </div>
   );
 }
