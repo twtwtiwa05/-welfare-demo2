@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Search, Zap, ChevronRight } from "lucide-react";
+import { Search, Zap, ChevronRight, Siren } from "lucide-react";
 import { regionCandidates, brief } from "../../lib/mobileData";
 import { rankByPriority } from "../../lib/priority";
 import { isRapidDecline } from "../../lib/ml";
@@ -22,7 +22,7 @@ export default function MobileCases({
   myOnly: boolean;
   onOpenCase: (id: string) => void;
 }) {
-  const { getStatus } = useCaseState();
+  const { getStatus, isEmergency } = useCaseState();
   const [q, setQ] = useState("");
   const [statusFilter, setStatusFilter] = useState<CaseStatus | "all">("all");
 
@@ -33,18 +33,35 @@ export default function MobileCases({
 
   const high = ranked.filter((r) => r.score >= 80).length;
   const rapid = ranked.filter((r) => r.rapid).length;
+  const emergCount = ranked.filter((r) => isEmergency(r.household.id)).length;
 
   const k = q.trim().toLowerCase();
-  const filtered = ranked.filter((r) => {
-    if (statusFilter !== "all" && getStatus(r.household.id) !== statusFilter)
-      return false;
-    if (k && !`${r.household.id} ${r.household.dong}`.toLowerCase().includes(k))
-      return false;
-    return true;
-  });
+  const filtered = ranked
+    .filter((r) => {
+      if (statusFilter !== "all" && getStatus(r.household.id) !== statusFilter)
+        return false;
+      if (k && !`${r.household.id} ${r.household.dong}`.toLowerCase().includes(k))
+        return false;
+      return true;
+    })
+    // 긴급 SOS는 항상 최상단
+    .sort(
+      (a, b) =>
+        (isEmergency(b.household.id) ? 1 : 0) - (isEmergency(a.household.id) ? 1 : 0)
+    );
 
   return (
     <div className="px-3 pb-2">
+      {/* 긴급 SOS 배너 */}
+      {emergCount > 0 && (
+        <div className="mb-3 flex items-center gap-2 rounded-xl bg-red-600 px-3.5 py-3 text-white shadow-card">
+          <Siren size={18} className="shrink-0 animate-pulse" aria-hidden />
+          <span className="flex-1 text-sm font-bold">
+            긴급 SOS {emergCount}건 — 즉시 확인 필요
+          </span>
+        </div>
+      )}
+
       {/* 미니 통계 */}
       <div className="mb-3 grid grid-cols-3 gap-2">
         <Stat label="발굴 후보" value={ranked.length} tone="slate" />
@@ -88,23 +105,36 @@ export default function MobileCases({
         {filtered.map((r) => {
           const h = r.household;
           const status = getStatus(h.id);
+          const emerg = isEmergency(h.id);
           return (
             <li key={h.id}>
               <button
                 onClick={() => onOpenCase(h.id)}
-                className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 text-left shadow-card transition-colors active:bg-slate-50"
+                className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left shadow-card transition-colors ${
+                  emerg
+                    ? "border-red-400 bg-red-50 ring-1 ring-red-300 active:bg-red-100"
+                    : "border-slate-200 bg-white active:bg-slate-50"
+                }`}
               >
                 <div
                   className={`flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl tabular-nums ${
-                    r.score >= 80
-                      ? "bg-red-50 text-red-700"
-                      : r.score >= 50
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-slate-100 text-slate-500"
+                    emerg
+                      ? "bg-red-600 text-white"
+                      : r.score >= 80
+                        ? "bg-red-50 text-red-700"
+                        : r.score >= 50
+                          ? "bg-amber-50 text-amber-700"
+                          : "bg-slate-100 text-slate-500"
                   }`}
                 >
-                  <span className="text-lg font-bold leading-none">{r.score}</span>
-                  <span className="text-[9px] font-semibold opacity-70">점</span>
+                  {emerg ? (
+                    <Siren size={20} />
+                  ) : (
+                    <>
+                      <span className="text-lg font-bold leading-none">{r.score}</span>
+                      <span className="text-[9px] font-semibold opacity-70">점</span>
+                    </>
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
@@ -112,7 +142,12 @@ export default function MobileCases({
                       {h.id}
                     </span>
                     <span className="text-xs text-slate-400">{h.dong}</span>
-                    {isRapidDecline(h) && (
+                    {emerg && (
+                      <span className="inline-flex items-center gap-0.5 rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        <Siren size={9} aria-hidden /> 긴급 SOS
+                      </span>
+                    )}
+                    {!emerg && isRapidDecline(h) && (
                       <span className="inline-flex items-center gap-0.5 rounded-full bg-rose-50 px-1.5 py-0.5 text-[10px] font-bold text-rose-600">
                         <Zap size={9} aria-hidden /> 급속악화
                       </span>

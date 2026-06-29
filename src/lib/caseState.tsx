@@ -66,12 +66,17 @@ interface CaseStateValue {
   setAssignee: (id: string, assignee: string) => void;
   bulkSetStatus: (ids: string[], status: CaseStatus) => void;
   bulkAssign: (ids: string[], assignee: string) => void;
+  /** ★ 긴급 SOS — 방문 중 위급상황 등록. 명단에 적색 표시·담당팀 공유 */
+  isEmergency: (id: string) => boolean;
+  setEmergency: (id: string, on: boolean) => void;
+  emergencyIds: string[];
 }
 
 const Ctx = createContext<CaseStateValue | null>(null);
 
 export function CaseStateProvider({ children }: { children: React.ReactNode }) {
   const [overrides, setOverrides] = useState<Record<string, Override>>({});
+  const [emergencies, setEmergencies] = useState<Set<string>>(new Set());
 
   const value = useMemo<CaseStateValue>(() => {
     const getStatus = (id: string) => overrides[id]?.status ?? defaultStatus(id);
@@ -92,8 +97,17 @@ export function CaseStateProvider({ children }: { children: React.ReactNode }) {
       setAssignee: (id, assignee) => merge(id, { assignee }),
       bulkSetStatus: (ids, status) => bulkMerge(ids, { status }),
       bulkAssign: (ids, assignee) => bulkMerge(ids, { assignee }),
+      isEmergency: (id) => emergencies.has(id),
+      setEmergency: (id, on) =>
+        setEmergencies((prev) => {
+          const n = new Set(prev);
+          if (on) n.add(id);
+          else n.delete(id);
+          return n;
+        }),
+      emergencyIds: [...emergencies],
     };
-  }, [overrides]);
+  }, [overrides, emergencies]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

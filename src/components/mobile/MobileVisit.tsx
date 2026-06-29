@@ -1,13 +1,16 @@
 import { useMemo, useState } from "react";
-import { Phone, Check, Route as RouteIcon, ChevronRight, Zap } from "lucide-react";
+import { Phone, Check, Route as RouteIcon, ChevronRight, Zap, Siren } from "lucide-react";
 import { regionCandidates, brief } from "../../lib/mobileData";
 import { rankByPriority } from "../../lib/priority";
 import { groupByProximity } from "../../lib/routing";
 import { computeScore } from "../../lib/scoring";
 import { isRapidDecline } from "../../lib/ml";
 import { caseMeta } from "../../lib/caseMeta";
+import { useCaseState } from "../../lib/caseState";
 import RiskBadge from "../RiskBadge";
 import RouteMap from "../visit/RouteMap";
+import MobileSosSheet from "./MobileSosSheet";
+import { getHousehold } from "../../lib/data";
 
 // 모바일 방문계획 — 실제 현장용 "오늘의 동선". 터치 친화 경로 + 방문 체크리스트.
 // ⚠️ 발표용 설명 카피 없음. 담당자가 외근에서 바로 참고하는 화면.
@@ -30,6 +33,8 @@ export default function MobileVisit({
   );
   const [gi, setGi] = useState(0);
   const [visited, setVisited] = useState<Set<string>>(new Set());
+  const [sosFor, setSosFor] = useState<string | null>(null);
+  const { isEmergency, setEmergency } = useCaseState();
 
   const group = groups[gi] ?? groups[0];
   const stops = group?.ordered ?? [];
@@ -117,12 +122,17 @@ export default function MobileVisit({
           const score = computeScore(h.signals, h.profileGroup).score;
           const meta = caseMeta(h, score);
           const isVisited = visited.has(h.id);
+          const emerg = isEmergency(h.id);
           const tel = "010-0000-" + meta.maskedPhone.slice(-4);
           return (
             <li
               key={h.id}
               className={`rounded-2xl border p-3 shadow-card transition-all ${
-                isVisited ? "border-emerald-200 bg-emerald-50/40" : "border-slate-200 bg-white"
+                emerg
+                  ? "border-red-400 bg-red-50 ring-1 ring-red-300"
+                  : isVisited
+                    ? "border-emerald-200 bg-emerald-50/40"
+                    : "border-slate-200 bg-white"
               }`}
             >
               <div className="flex items-start gap-3">
@@ -131,20 +141,25 @@ export default function MobileVisit({
                   aria-pressed={isVisited}
                   aria-label={isVisited ? "방문 취소" : "방문 완료 표시"}
                   className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold tabular-nums transition-colors ${
-                    isVisited ? "bg-emerald-500 text-white" : "bg-brand-600 text-white"
+                    emerg ? "bg-red-600 text-white" : isVisited ? "bg-emerald-500 text-white" : "bg-brand-600 text-white"
                   }`}
                 >
-                  {isVisited ? <Check size={18} /> : i + 1}
+                  {emerg ? <Siren size={17} /> : isVisited ? <Check size={18} /> : i + 1}
                 </button>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-1.5">
                     <span
                       className={`font-mono text-sm font-semibold ${
-                        isVisited ? "text-slate-400 line-through" : "text-slate-800"
+                        isVisited && !emerg ? "text-slate-400 line-through" : "text-slate-800"
                       }`}
                     >
                       {h.id}
                     </span>
+                    {emerg && (
+                      <span className="inline-flex items-center gap-0.5 rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        <Siren size={9} aria-hidden /> 긴급 SOS
+                      </span>
+                    )}
                     <RiskBadge score={score} size="sm" />
                     {isRapidDecline(h) && (
                       <span className="inline-flex items-center gap-0.5 rounded-full bg-rose-50 px-1.5 py-0.5 text-[10px] font-bold text-rose-600">
@@ -179,6 +194,18 @@ export default function MobileVisit({
                       {isVisited ? "방문함 ✓" : "방문 완료"}
                     </button>
                   </div>
+
+                  {/* 긴급 SOS */}
+                  <button
+                    onClick={() => setSosFor(h.id)}
+                    className={`mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-bold transition-colors ${
+                      emerg
+                        ? "bg-red-600 text-white active:bg-red-700"
+                        : "border border-red-200 bg-red-50/70 text-red-600 active:bg-red-100"
+                    }`}
+                  >
+                    <Siren size={13} /> {emerg ? "긴급 상황 — 관리" : "긴급 SOS"}
+                  </button>
                 </div>
               </div>
             </li>
@@ -189,6 +216,23 @@ export default function MobileVisit({
       <p className="mt-3 px-1 text-center text-[11px] text-slate-400">
         순서·포함 여부는 담당자가 조정합니다. 좌표는 합성 데이터입니다.
       </p>
+
+      {sosFor &&
+        (() => {
+          const h = getHousehold(sosFor);
+          if (!h) return null;
+          return (
+            <MobileSosSheet
+              household={h}
+              registered={isEmergency(sosFor)}
+              onToggle={() => {
+                setEmergency(sosFor, !isEmergency(sosFor));
+                setSosFor(null);
+              }}
+              onClose={() => setSosFor(null)}
+            />
+          );
+        })()}
     </div>
   );
 }

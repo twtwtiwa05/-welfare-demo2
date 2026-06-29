@@ -9,8 +9,10 @@ import {
   Zap,
   Download,
   ChevronRight,
+  Siren,
 } from "lucide-react";
 import { useAuth } from "../../lib/auth";
+import { useCaseState } from "../../lib/caseState";
 import { regionCandidates } from "../../lib/mobileData";
 import { isRapidDecline } from "../../lib/ml";
 import { computeScore } from "../../lib/scoring";
@@ -29,6 +31,7 @@ interface BIPEvent extends Event {
 // 방문계획(오늘의 동선) + 케이스(목록→상세). 내 담당 권역·알림·앱 설치 포함.
 export default function MobileShell() {
   const { user, signOut } = useAuth();
+  const { emergencyIds } = useCaseState();
   const region = user?.region ?? "전체";
   const hasRegion = region !== "전체";
 
@@ -113,6 +116,20 @@ export default function MobileShell() {
           </div>
         )}
       </header>
+
+      {/* 긴급 SOS 알림 배너 */}
+      {emergencyIds.length > 0 && (
+        <button
+          onClick={() => setTab("cases")}
+          className="flex w-full items-center gap-2 bg-red-600 px-4 py-3 text-left text-white active:bg-red-700"
+        >
+          <Siren size={18} className="shrink-0 animate-pulse" aria-hidden />
+          <span className="flex-1 text-sm font-bold">
+            긴급 SOS {emergencyIds.length}건 — 명단 확인
+          </span>
+          <ChevronRight size={18} className="shrink-0" aria-hidden />
+        </button>
+      )}
 
       {/* 앱 설치 배너 */}
       {installEvt && !installDismissed && (
