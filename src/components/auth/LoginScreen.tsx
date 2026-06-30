@@ -44,7 +44,7 @@ export default function LoginScreen() {
           </div>
 
           <div className="relative">
-            <h2 className="text-[3.5rem] font-bold leading-none tracking-tight">이어줌</h2>
+            <h2 className="text-[3.5rem] font-bold leading-none tracking-tight">이음누리</h2>
             <p className="mt-3.5 text-sm font-medium text-brand-100/75">
               끊긴 위기 신호와 복지를 잇습니다.
             </p>

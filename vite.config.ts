@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "apple-touch-icon.png"],
       manifest: {
-        name: "이어줌 — 복지 사각지대 발굴·모니터링",
-        short_name: "이어줌",
+        name: "이음누리 — 복지 사각지대 발굴·모니터링",
+        short_name: "이음누리",
         description:
           "끊긴 위기 신호와 복지를 잇는 보조 시스템 — 투명 위험 점수 · ML 급속악화 선별 · 방문 동선 (합성 데이터 PoC).",
         lang: "ko",

@@ -108,7 +108,7 @@ export default function App() {
                 </div>
                 <div className="hidden leading-tight sm:block">
                   <h1 className="text-[16px] font-bold text-slate-800">
-                    <span className="text-brand-600">이어줌</span>
+                    <span className="text-brand-600">이음누리</span>
                     <span className="ml-2 text-[12px] font-medium text-slate-400">
                       복지 사각지대 발굴·모니터링
                     </span>
