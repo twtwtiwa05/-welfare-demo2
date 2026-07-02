@@ -105,6 +105,25 @@ class MockAuthBackend implements AuthBackend {
 // 기본 백엔드(교체 지점). 실서비스: new OAuthAuthBackend(...) 등으로 교체.
 const backend: AuthBackend = new MockAuthBackend();
 
+/**
+ * 초기 세션 결정 — QR/데모 진입(?fresh=1)이면 저장된 세션을 지우고
+ * 항상 로그인 화면부터 시작한다(공모전 심사위원 체험 동선).
+ * 설치된 PWA(start_url="/")나 일반 재방문은 기존대로 세션을 유지한다.
+ */
+function initialSession(): AuthUser | null {
+  try {
+    if (new URLSearchParams(window.location.search).has("fresh")) {
+      void backend.signOut();
+      // 주소창·북마크에 파라미터가 남지 않게 정리
+      window.history.replaceState(null, "", window.location.pathname);
+      return null;
+    }
+  } catch {
+    /* URL 파싱 불가 환경 — 일반 흐름으로 */
+  }
+  return backend.getSession();
+}
+
 interface AuthValue {
   user: AuthUser | null;
   loading: boolean;
@@ -116,7 +135,7 @@ interface AuthValue {
 const Ctx = createContext<AuthValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(() => backend.getSession());
+  const [user, setUser] = useState<AuthUser | null>(initialSession);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
