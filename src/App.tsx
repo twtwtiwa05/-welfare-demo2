@@ -3,6 +3,7 @@ import AnalysisTab from "./components/analysis/AnalysisTab";
 import UtilizationTab from "./components/utilization/UtilizationTab";
 import VisitTab from "./components/visit/VisitTab";
 import CaseBoard from "./components/caseboard/CaseBoard";
+import ExperimentTab from "./components/experiment/ExperimentTab";
 import IntroHook from "./components/IntroHook";
 import ProofBoundary from "./components/ProofBoundary";
 import References from "./components/References";
@@ -21,6 +22,7 @@ import {
   Sparkles,
   Route,
   LayoutDashboard,
+  FlaskConical,
   ShieldCheck,
   Search,
   RefreshCw,
@@ -31,13 +33,14 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-type Tab = "analysis" | "utilization" | "visit" | "caseboard";
+type Tab = "analysis" | "utilization" | "visit" | "caseboard" | "experiment";
 
 const TABS: BottomNavItem<Tab>[] = [
   { key: "analysis", label: "분석", icon: <Layers size={16} /> },
   { key: "utilization", label: "활용도", icon: <Sparkles size={16} />, star: true },
   { key: "visit", label: "방문계획", icon: <Route size={16} />, star: true },
   { key: "caseboard", label: "케이스", icon: <LayoutDashboard size={16} /> },
+  { key: "experiment", label: "실증 실험", icon: <FlaskConical size={16} />, star: true },
 ];
 
 const RESIDUAL = HOUSEHOLDS.filter((h) => !h.haengbokFlagged);
@@ -98,44 +101,49 @@ export default function App() {
   return (
     <CaseStateProvider>
       <div className="min-h-screen pb-16 lg:pb-0">
-        <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 shadow-header backdrop-blur-md">
-          <div className="mx-auto max-w-6xl px-4">
-            {/* 상단 줄: 로고 · 검색 · 프로필 */}
-            <div className="flex items-center gap-3 py-3">
-              <div className="flex shrink-0 items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-sm ring-1 ring-brand-700/20">
-                  <ShieldCheck size={20} strokeWidth={2.2} />
+        <header className="sticky top-0 z-30 shadow-header">
+          {/* ① 상단 유틸리티 바 — 정부 포털 공통(동기화·권한·계정) */}
+          <div className="border-b border-slate-200 bg-slate-50">
+            <div className="mx-auto flex max-w-6xl items-center justify-end gap-2.5 px-4 py-1 text-[11px] text-slate-500">
+              <span className="hidden items-center gap-1 sm:inline-flex">
+                <RefreshCw size={11} /> 09:00 동기화
+              </span>
+              <span className="hidden h-3 w-px bg-slate-300 sm:inline-block" />
+              <span className="inline-flex items-center gap-1 font-semibold text-slate-600">
+                <Lock size={11} /> 조회·기록 권한
+              </span>
+              <span className="h-3 w-px bg-slate-300" />
+              <ProfileMenu />
+            </div>
+          </div>
+
+          {/* ② 기관 마크 + 통합검색 (GNB 메인) */}
+          <div className="border-b border-slate-200 bg-white">
+            <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5">
+              <div className="flex shrink-0 items-center gap-2.5">
+                {/* 기관형 자체 마크 — 각진 정부블루 심볼(실제 정부상징 미사용) */}
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-500 text-white">
+                  <ShieldCheck size={19} strokeWidth={2.2} />
                 </div>
-                <div className="hidden leading-tight sm:block">
-                  <h1 className="text-[16px] font-bold text-slate-800">
-                    <span className="text-brand-600">이음누리</span>
-                    <span className="ml-2 text-[12px] font-medium text-slate-400">
-                      복지 사각지대 발굴·모니터링
-                    </span>
+                <div className="leading-tight">
+                  <h1 className="text-[17px] font-extrabold tracking-tight text-slate-900">
+                    이음누리
                   </h1>
-                  <p className="text-caption text-slate-400">
-                    점수는 투명 공식 · 근거는 자동 서술 · 결정은 사람
+                  <p className="hidden text-[11px] font-medium text-slate-500 sm:block">
+                    복지 사각지대 발굴·모니터링 시스템
                   </p>
                 </div>
               </div>
 
               <GlobalSearch onPick={gotoCase} onSubmit={searchTo} />
-
-              <div className="hidden shrink-0 items-center gap-3 lg:flex">
-                <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                  <RefreshCw size={12} /> 09:00 동기화
-                </div>
-                <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
-                  <Lock size={11} /> 조회·기록 권한
-                </span>
-              </div>
-              <ProfileMenu />
             </div>
+          </div>
 
-            {/* 하단 줄: 탭(데스크톱) + 정보 토글 */}
-            <div className="flex items-center justify-between gap-2 pb-2">
+          {/* ③ GNB 탭 네비 — 밑줄 강조형(정부24 스타일) + 정보 토글 */}
+          <div className="border-b border-slate-200 bg-white">
+            <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4">
               <nav
-                className="hidden gap-1 overflow-x-auto lg:flex"
+                className="hidden overflow-x-auto lg:flex"
                 role="tablist"
                 aria-label="화면 전환"
                 onKeyDown={onTabListKeyDown}
@@ -153,10 +161,10 @@ export default function App() {
                 ))}
               </nav>
               {/* 모바일: 현재 탭 라벨 */}
-              <span className="text-sm font-bold text-slate-700 lg:hidden">
+              <span className="py-2.5 text-sm font-bold text-slate-700 lg:hidden">
                 {activeTabLabel}
               </span>
-              <div className="flex shrink-0 items-center gap-1.5">
+              <div className="flex shrink-0 items-center gap-1.5 py-1.5">
                 <InfoToggle
                   active={showIntro}
                   onClick={() => setShowIntro((v) => !v)}
@@ -207,6 +215,9 @@ export default function App() {
                 globalQuery={globalQuery}
               />
             )}
+            {tab === "experiment" && (
+              <ExperimentTab onOpenProof={() => setShowProof(true)} />
+            )}
           </div>
         </main>
 
@@ -253,18 +264,15 @@ function ProfileMenu() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={`${user.name} 프로필 메뉴`}
-        className="flex items-center gap-2 rounded-full border border-transparent py-1 pl-1 pr-1 transition-colors hover:border-slate-200 hover:bg-slate-50 lg:border-l lg:border-l-slate-200 lg:pl-3"
+        className="flex items-center gap-1.5 rounded px-1 py-0.5 text-[11px] transition-colors hover:bg-slate-100"
       >
-        <div className="hidden text-right leading-tight lg:block">
-          <div className="text-[13px] font-semibold text-slate-700">{user.dept}</div>
-          <div className="text-[11px] text-slate-400">
-            {user.name} · {user.regionLabel}
-          </div>
-        </div>
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-sm font-bold text-brand-700 ring-1 ring-brand-200">
+        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-100 text-[10px] font-bold text-brand-700">
           {user.initial}
-        </div>
-        <ChevronDown size={14} className="hidden text-slate-400 lg:block" />
+        </span>
+        <span className="hidden font-semibold text-slate-600 sm:inline">
+          {user.dept} · {user.name}
+        </span>
+        <ChevronDown size={12} className="text-slate-400" />
       </button>
 
       {open && (
@@ -430,10 +438,10 @@ function TabButton({
       aria-selected={active}
       aria-controls={`panel-${tabKey}`}
       tabIndex={active ? 0 : -1}
-      className={`inline-flex shrink-0 items-center gap-2 rounded-lg px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${
+      className={`-mb-px inline-flex shrink-0 items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors duration-150 ${
         active
-          ? "bg-brand-50 text-brand-700 ring-1 ring-brand-200"
-          : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+          ? "border-brand-500 text-brand-600"
+          : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-800"
       }`}
     >
       {icon}

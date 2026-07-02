@@ -4,29 +4,32 @@
 
 @layer base {
   html {
-    /* 발표 시인성: 기본 본문 16px+ (5-A.5) */
-    font-size: 16px;
+    /* KRDS 기본 본문 17px (Pretendard GOV 기준 접근성 최소치) */
+    font-size: 17px;
     -webkit-text-size-adjust: 100%;
+    /* 크롬 안드로이드 네이티브 pull-to-refresh 억제 — 커스텀 PTR(MobileShell)이 제스처를 소유 */
+    overscroll-behavior-y: contain;
   }
   body {
-    @apply bg-slate-50 text-slate-800 antialiased;
+    overscroll-behavior-y: contain;
+  }
+  body {
+    /* KRDS: 화려한 그라데이션 대신 평평한 회색 표면(Gray 5, #F4F5F6) — 관공서 톤 */
+    @apply text-slate-800 antialiased dark:text-slate-200;
+    background-color: #f4f5f6;
     font-family: theme("fontFamily.sans");
-    /* 미묘한 배경 그라데이션 — 화려함이 아닌 깊이감 (흰 화면의 단조로움 완화) */
-    background-image: radial-gradient(
-      120% 80% at 50% -10%,
-      #f7fafd 0%,
-      #f1f5f9 55%,
-      #eef2f7 100%
-    );
-    background-attachment: fixed;
+  }
+  /* 다크: 무채색 다크 표면(night-900) — 청색 끼 없는 차분한 행정 톤 */
+  .dark body {
+    background-color: theme("colors.night.900");
   }
   /* 숫자는 항상 정렬되게 (점수·지표 가독성) */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
-  /* 일관된 키보드 포커스 (접근성) — 링 대비 3:1↑ 위해 불투명 brand-500 */
+  /* KRDS 포커스: 4px 정부블루 헤일로(#256EF4). 모든 인터랙션 요소 공통 */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-[3px] ring-brand-500 ring-offset-1 ring-offset-white dark:ring-brand-400 dark:ring-offset-night-900;
   }
   /* 스크린리더 전용 텍스트 (시각적 숨김, AT엔 노출) */
   .sr-only {
@@ -43,33 +46,33 @@
 }
 
 @layer components {
-  /* ── 카드 ─────────────────────────────────────────────── */
+  /* ── 카드 (KRDS: 흰 배경 · 1px 회색 테두리 · 8px · 그림자 최소) ─── */
   .card {
-    @apply rounded-xl border border-slate-200/80 bg-white shadow-card;
+    @apply rounded-lg border border-line bg-white shadow-card dark:border-night-700 dark:bg-night-850;
   }
   .card-pad {
     @apply p-4 sm:p-5;
   }
   /* 카드 상단 헤더(타이틀 + 우측 액션) */
   .card-head {
-    @apply flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3 sm:px-5;
+    @apply flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3 dark:border-night-700 sm:px-5;
   }
   .card-title {
-    @apply text-sm font-bold text-slate-700;
+    @apply text-sm font-bold text-slate-700 dark:text-slate-200;
   }
   /* 작은 섹션 라벨 — 위계의 최상위 안내선 */
   .section-label {
-    @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400;
+    @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500;
   }
 
   /* ── 반복 패턴 공통화 (일회성 className 복붙 제거) ─────────── */
   /* 카드 내부 정보 타일 */
   .info-tile {
-    @apply rounded-xl border border-slate-200 bg-slate-50/70 p-4;
+    @apply rounded-xl border border-slate-200 bg-slate-50/70 p-4 dark:border-night-700 dark:bg-night-800/70;
   }
   /* 작은 수치 타일 (미니 스탯) */
   .stat-tile {
-    @apply rounded-lg border border-slate-200 bg-slate-50/60 p-2.5 text-center;
+    @apply rounded-lg border border-slate-200 bg-slate-50/60 p-2.5 text-center dark:border-night-700 dark:bg-night-800/60;
   }
   /* 아이콘 배경 원 */
   .icon-circle-sm {
@@ -80,21 +83,23 @@
   }
   /* 클릭 가능한 리스트 행 — 일관된 hover/transition 내장 */
   .list-row {
-    @apply flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-all duration-200 hover:bg-slate-50;
+    @apply flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-all duration-200 hover:bg-slate-50 dark:hover:bg-night-800;
   }
   .list-row-selected {
-    @apply bg-brand-50 ring-1 ring-inset ring-brand-200;
+    @apply bg-brand-50 ring-1 ring-inset ring-brand-200 dark:bg-brand-900/40 dark:ring-brand-700;
   }
 
-  /* ── 버튼 ─────────────────────────────────────────────── */
+  /* ── 버튼 (KRDS: 6px · 평평 · 상태색 명확) ─────────────── */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 disabled:pointer-events-none disabled:opacity-40;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition-colors duration-150 disabled:pointer-events-none disabled:bg-slate-300 disabled:text-slate-500 dark:disabled:bg-night-700 dark:disabled:text-slate-500;
   }
+  /* KRDS Primary: 50(#256EF4) → hover 60(#0B50D0) → pressed 70(#083891) */
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 hover:shadow active:translate-y-px;
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700;
   }
+  /* KRDS Tertiary(중립 보조): 흰 배경 · 회색 테두리 */
   .btn-secondary {
-    @apply btn border border-slate-200 bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm active:translate-y-px;
+    @apply btn border border-slate-400 bg-white text-slate-700 hover:bg-slate-50 hover:text-brand-600 dark:border-night-600 dark:bg-night-800 dark:text-slate-200 dark:hover:bg-night-700 dark:hover:text-brand-300;
   }
 
   /* ── 칩/뱃지 공통 ─────────────────────────────────────── */
@@ -121,7 +126,7 @@
     border: 2px solid theme("colors.brand.600");
     box-shadow:
       0 1px 2px rgba(15, 23, 42, 0.18),
-      0 0 0 3px rgba(47, 107, 191, 0.12);
+      0 0 0 3px rgba(37, 110, 244, 0.12);
     transition:
       transform 0.12s ease,
       box-shadow 0.12s ease;
@@ -143,7 +148,7 @@
   .range-brand:active::-webkit-slider-thumb {
     box-shadow:
       0 1px 3px rgba(15, 23, 42, 0.22),
-      0 0 0 5px rgba(47, 107, 191, 0.18);
+      0 0 0 5px rgba(37, 110, 244, 0.18);
   }
   .range-brand::-moz-range-track {
     @apply h-2 rounded-full bg-slate-200;
@@ -156,7 +161,7 @@
     border: 2px solid theme("colors.brand.600");
     box-shadow:
       0 1px 2px rgba(15, 23, 42, 0.18),
-      0 0 0 3px rgba(47, 107, 191, 0.12);
+      0 0 0 3px rgba(37, 110, 244, 0.12);
   }
 }
 
@@ -186,6 +191,10 @@
   .hover-lift {
     @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover;
   }
+  /* 모바일 터치 피드백 — 탭 시 살짝 눌리는 네이티브 감각 */
+  .press {
+    @apply transition-transform duration-100 active:scale-[0.98];
+  }
   /* 동선 경로선 그리기 (탭3). 대상 path/line에 pathLength="1" 필요 */
   .route-line {
     stroke-dasharray: 1;
@@ -198,6 +207,29 @@
   to {
     stroke-dashoffset: 0;
   }
+}
+
+/* 모바일 네이티브 감각 — iOS 회색 탭 하이라이트 제거(피드백은 .press/active 색이 담당) */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 다크모드 지도 — OSM 라이트 타일을 은은하게 감광(별도 다크 타일 서버 불필요) */
+.dark .leaflet-container {
+  background: #1f232b;
+}
+.dark .leaflet-tile {
+  filter: brightness(0.72) contrast(1.06) saturate(0.7);
+}
+.dark .leaflet-control-zoom a {
+  background: #1f232b;
+  color: #e2e8f0;
+  border-color: #2e333d;
+}
+.dark .leaflet-control-attribution {
+  background: rgba(17, 19, 24, 0.7);
+  color: #94a3b8;
 }
 
 /* 부드러운 단계 전환 (5-A.6). 접근성: 모션 최소화 존중 */

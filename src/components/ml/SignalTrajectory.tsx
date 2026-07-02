@@ -61,19 +61,21 @@ export default function SignalTrajectory({
     (changeWeek != null ? `, ${changeWeek}주차 변화점` : "");
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-2">
+    <div className="rounded-lg border border-slate-200 bg-white p-2 dark:border-night-700 dark:bg-night-850">
       <div className="mb-0.5 flex items-baseline justify-between">
-        <span className="text-[11px] font-semibold text-slate-600">
+        <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">
           {meta.label}
           {meta.auxiliary && (
-            <span className="ml-1 rounded bg-amber-50 px-1 text-[9px] font-semibold text-amber-600">
+            <span className="ml-1 rounded bg-amber-50 px-1 text-[9px] font-semibold text-amber-600 dark:bg-amber-950/60 dark:text-amber-300">
               보조
             </span>
           )}
         </span>
         <span
           className={`tabular-nums text-[11px] font-bold ${
-            overThreshold ? "text-rose-600" : "text-slate-700"
+            overThreshold
+              ? "text-rose-600 dark:text-rose-400"
+              : "text-slate-700 dark:text-slate-200"
           }`}
         >
           {meta.format(last)}
@@ -93,7 +95,7 @@ export default function SignalTrajectory({
             x2={W - PADX}
             y1={y(thrDeficit)}
             y2={y(thrDeficit)}
-            stroke="#cbd5e1"
+            className="stroke-slate-300 dark:stroke-night-600"
             strokeWidth={0.6}
             strokeDasharray="2 2"
           />
@@ -101,7 +103,7 @@ export default function SignalTrajectory({
         <polyline
           points={path}
           fill="none"
-          stroke={overThreshold ? "#e11d48" : "#2f6bbf"}
+          stroke={overThreshold ? "#DE3412" : "#256EF4"}
           strokeWidth={1.4}
           strokeLinejoin="round"
           strokeLinecap="round"
@@ -112,7 +114,7 @@ export default function SignalTrajectory({
             cx={x(changeWeek - 1)}
             cy={y(deficits[changeWeek - 1])}
             r={2.2}
-            fill="#e11d48"
+            fill="#DE3412"
             stroke="#fff"
             strokeWidth={0.8}
           />
@@ -122,13 +124,13 @@ export default function SignalTrajectory({
           cx={x(raw.length - 1)}
           cy={y(deficits[deficits.length - 1])}
           r={1.8}
-          fill={overThreshold ? "#e11d48" : "#2f6bbf"}
+          fill={overThreshold ? "#DE3412" : "#256EF4"}
         />
       </svg>
-      <div className="mt-0.5 flex items-center justify-between text-[9px] text-slate-400">
+      <div className="mt-0.5 flex items-center justify-between text-[9px] text-slate-400 dark:text-slate-500">
         <span>8주 전</span>
         {meta.threshold != null && (
-          <span className={overThreshold ? "text-rose-500" : ""}>
+          <span className={overThreshold ? "text-rose-500 dark:text-rose-400" : ""}>
             임계 {meta.format(meta.threshold)} {overThreshold ? "초과" : "미만"}
           </span>
         )}

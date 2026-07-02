@@ -3,27 +3,20 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { computeScore, riskBand, type Band } from "../../lib/scoring";
 import type { Household } from "../../lib/types";
+import { toLatLng, LAT0, LAT_SPAN, LNG0, LNG_SPAN } from "../../lib/geo";
 import SimBadge from "../SimBadge";
 import { MapPin } from "lucide-react";
 
 // ★ 실제 지도(OpenStreetMap) 위에 방문 동선을 올린다 — 사실감.
 // ⚠️ 좌표는 합성(0~1)이며, 데모 사실감을 위해 실제 주거지(수원 인근) 위에 *예시 위치*로 매핑한다.
 //    실제 주소가 아니다 — 실서비스에선 법적 근거 하 재식별 후에만 실위치 표시가 가능하다.
+//    (좌표 매핑은 lib/geo.ts 단일 출처 — 길찾기 링크와 동일)
 const DOT: Record<Band, string> = {
   high: "#ef4444",
   mid: "#f59e0b",
   low: "#94a3b8",
 };
 const sc = (h: Household) => computeScore(h.signals, h.profileGroup).score;
-
-// 합성 좌표(0~1) → 위경도. 수원 인근 ~2km 박스(세 모녀 사건 맥락).
-const LAT0 = 37.2636;
-const LAT_SPAN = 0.016;
-const LNG0 = 127.0286;
-const LNG_SPAN = 0.02;
-function toLatLng(h: Household): [number, number] {
-  return [LAT0 + (1 - h.coords.y) * LAT_SPAN, LNG0 + h.coords.x * LNG_SPAN];
-}
 
 function numberedIcon(n: number, color: string): L.DivIcon {
   return L.divIcon({
@@ -100,7 +93,7 @@ export default function RouteMap({
     // 경로선
     if (stops.length > 1) {
       L.polyline(stops.map(toLatLng), {
-        color: "#2f6bbf",
+        color: "#256EF4",
         weight: 4,
         opacity: 0.85,
         lineJoin: "round",
@@ -140,7 +133,7 @@ export default function RouteMap({
         aria-label={`방문 동선 지도 — ${stops.length}곳을 번호 순서로 연결`}
       />
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-slate-100 px-4 py-2 text-[11px] text-slate-400">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-slate-100 px-4 py-2 text-[11px] text-slate-400 dark:border-night-700 dark:text-slate-500">
         <span>번호 = 방문 순서</span>
         <Legend color={DOT.high} label="고위험" />
         <Legend color={DOT.mid} label="주의" />

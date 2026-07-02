@@ -14,6 +14,7 @@
     "gen:ml": "python scripts/run_ml.py",
     "gen:bands": "node scripts/compute-bands.mjs",
     "gen:icons": "node scripts/gen-icons.mjs",
+    "gen:qr": "node scripts/gen-qr.mjs",
     "gen:all": "npm run gen:data && npm run gen:ml"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "qrcode": "^1.5.4",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
